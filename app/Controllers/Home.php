@@ -1,11 +1,18 @@
-<?php
+<?php namespace App\Controllers;
 
-namespace App\Controllers;
+use App\Libraries\Core\Query;
 
 class Home extends BaseController
 {
 	public function index()
 	{
-		return view('welcome_message');
+		$data = array();
+
+		$query = new Query();
+		// $db_list = $query->dbList($data);
+		
+		echo "DB연결 테스트 완료";
+
+
 	}
 }
