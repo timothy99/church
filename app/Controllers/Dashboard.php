@@ -2,7 +2,7 @@
 
 use App\Libraries\Core\Query;
 
-class Home extends BaseController
+class Dashboard extends BaseController
 {
 	public function index()
 	{
