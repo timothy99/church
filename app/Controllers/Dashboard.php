@@ -6,13 +6,15 @@ class Dashboard extends BaseController
 {
 	public function index()
 	{
-		$data = array();
+		$view = $this->dashboard();
 
-		$query = new Query();
-		// $db_list = $query->dbList($data);
-		
-		echo "DB연결 테스트 완료";
+		return $view;
+	}
+	
+	public function dashboard()
+	{
+		$view = view("dashboard/dashboard"); 
 
-
+		return $view;
 	}
 }
