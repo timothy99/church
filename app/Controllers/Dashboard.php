@@ -1,20 +1,18 @@
-<?php namespace App\Controllers;
+<?php
 
-use App\Libraries\Core\Query;
+namespace App\Controllers;
 
-class Dashboard extends BaseController
+class Dashboard extends MyController
 {
-	public function index()
-	{
-		$view = $this->dashboard();
+    public function index()
+    {
+        $this->dashboard();
+    }
+    
+    public function dashboard()
+    {
+        $view = view("dashboard/dashboard");
+        echo $view;
+    }
 
-		return $view;
-	}
-	
-	public function dashboard()
-	{
-		$view = view("dashboard/dashboard"); 
-
-		return $view;
-	}
 }
