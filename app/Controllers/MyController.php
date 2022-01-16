@@ -6,9 +6,6 @@ use App\Models\AuthorityModel;
 
 class MyController extends BaseController
 {
-    public $css_ver = "0.0.1"; // CSS버전
-    public $js_ver = "0.0.1"; // JS버전
-
     public function __construct()
     {
         // 기본적으로 항상 로깅헬퍼는 사용할 것이라 생성자에 선언했습니다.
