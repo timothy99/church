@@ -33,7 +33,8 @@ class AuthorityModel extends Model
         // 로그인하지 않아도 되는 url
         $allow_uri = array();
         $allow_uri[] = "/user/login";
-        // $allow_uri[] = "/dashboard/dashboard";
+        $allow_uri[] = "/user/register";
+        $allow_uri[] = "/user/registerProc";
 
         if (in_array($segment_uri, $allow_uri)) {
             $is_check_url = true; // 로그인 없어도 되는 url은 허용

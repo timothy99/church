@@ -37,4 +37,5 @@ class MyController extends BaseController
             exit;
         }
     }
+
 }

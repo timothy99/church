@@ -77,3 +77,9 @@ defined('EXIT_USER_INPUT')     || define('EXIT_USER_INPUT', 7); // invalid user 
 defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
+
+/*
+ | 시스템에서 사용하는 공통상수
+*/
+defined("CSS_VER")  || define('CSS_VER', "0.0.1"); // CSS버전
+defined("JS_VER")  || define('JS_VER', "0.0.1"); // JS버전
