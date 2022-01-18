@@ -2,14 +2,18 @@
 
 use CodeIgniter\Model;
 use Throwable;
+use stdClass;
 
 class UserModel extends Model
 {
+    public function __construct()
+    {
+        helper("log_helper");
+    }
+
     // 사용자 정보 입력
     public function insertUserInfo($data)
     {
-        helper("log_helper");
-
         $user_name = $data["user_name"];
         $user_id = $data["user_id"];
         $user_password = $data["user_password"];
@@ -17,7 +21,6 @@ class UserModel extends Model
         $db_result = true;
         $db_message = "입력이 잘 되었습니다";
         $insert_id = 0;
-        $affected_rows = 0;
 
         try {
             $db = \Config\Database::connect();
@@ -49,7 +52,40 @@ class UserModel extends Model
         $model_result["result"] = $db_result;
         $model_result["message"] = $db_message;
         $model_result["insert_id"] = $insert_id;
-        $model_result["affected_rows"] = $affected_rows;
+
+        return $model_result;
+    }
+
+    // 로그인 할때 사용자가 맞는지 정보 갖고 오기
+    public function getLoginInfo($data)
+    {
+        $db_result = true;
+        $db_message = "조회에 성공했습니다.";
+        $db_info = new stdClass();
+
+        $user_id = $data["user_id"];
+        $user_password = $data["user_password"];
+
+        try {
+            $db = \Config\Database::connect();
+
+            $builder = $db->table("csl_user");
+            $builder->select("user_idx");
+            $builder->select("user_id");
+            $builder->where("user_id", $user_id);
+            $builder->where("user_password", $user_password);
+            $builder->where("use_yn", "Y");
+            $builder->where("del_yn", "N");
+            $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
+        } catch(Throwable $t) {
+            $db_result = false;
+            $db_message = "조회에 오류가 발생했습니다.";
+        }
+
+        $model_result = array();
+        $model_result["result"] = $db_result;
+        $model_result["message"] = $db_message;
+        $model_result["db_info"] = $db_info;
 
         return $model_result;
     }

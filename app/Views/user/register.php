@@ -22,7 +22,7 @@
 
             <form id="frm" name="frm" method="post">
                 <div class="input-group mb-3">
-                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름" value="배진모">
+                    <input type="text" class="form-control" id="user_name" name="user_name" placeholder="이름">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-user"></span>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" id="user_id" name="user_id" placeholder="아이디(이메일)" value="bjm@dongbuch.org">
+                    <input type="email" class="form-control" id="user_id" name="user_id" placeholder="아이디(이메일)">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="user_password" name="user_password" placeholder="암호" value="test1234!">
+                    <input type="password" class="form-control" id="user_password" name="user_password" placeholder="암호">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="user_password2" name="user_password2" placeholder="암호 확인" value="test1234!">
+                    <input type="password" class="form-control" id="user_password2" name="user_password2" placeholder="암호 확인">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
@@ -56,7 +56,7 @@
                 <div class="row">
                     <div class="col-8">
                         <div class="icheck-primary">
-                            <input type="checkbox" id="user_terms" name="user_terms" value="agree" checked>
+                            <input type="checkbox" id="user_terms" name="user_terms" value="agree">
                             <label for="user_terms"><a href="#">약관</a>에 동의해요</label>
                         </div>
                     </div>
