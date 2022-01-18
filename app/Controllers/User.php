@@ -6,6 +6,11 @@ use App\Models\UserModel;
 
 class User extends MyController
 {
+    public function __construct()
+    {
+        helper("security_helper"); // 암호화 관련 헬퍼
+    }
+
     // 로그인 페이지
     public function login()
     {
@@ -16,7 +21,7 @@ class User extends MyController
     // 암호 분실 확인
     public function forgot()
     {
-        // 
+        // do something
     }
 
     // 회원가입
@@ -62,12 +67,16 @@ class User extends MyController
         }
 
         if($result == true) {
+            // 데이터 암호화
+            $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
+            $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
+
             $user_model = new UserModel();
 
             $data = array();
-            $data["user_name"] = $user_name;
+            $data["user_name"] = $user_name_enc;
             $data["user_id"] = $user_id;
-            $data["user_password"] = $user_password;
+            $data["user_password"] = $user_password_enc;
 
             $model_result = $user_model->insertUserInfo($data);
             $result = $model_result["result"];
