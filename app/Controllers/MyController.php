@@ -17,7 +17,7 @@ class MyController extends BaseController
     // 권한체크 로직
     public function authorityCheck()
     {
-        $need_login = true;
+        $need_login = false;
 
         $session = \Config\Services::session();
 
@@ -25,8 +25,8 @@ class MyController extends BaseController
 
         $is_check_session = $authority_model->checkSession();
         $is_check_url = $authority_model->checkUrl();
-        if ($is_check_session == false && $is_check_url == true) {
-            $need_login = false;
+        if ($is_check_session == false && $is_check_url == false) {
+            $need_login = true;
         }
 
         // 로그인을 해야 한다면
