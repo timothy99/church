@@ -1,17 +1,15 @@
     <footer class="main-footer">
-        <strong>대한예수교 장로회 동부교회</strong>
+        <strong>관리자</strong>
         <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 2.1
+            <b>Version</b> <?=PROGRAM_VER ?>
         </div>
     </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
+    <aside class="control-sidebar control-sidebar-dark"><!-- Control Sidebar -->
         <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
+    </aside><!-- /.control-sidebar -->
+</div><!-- ./wrapper -->
+
 
 <script src="../assets/plugin/jquery/jquery.min.js"></script><!-- jQuery -->
 <script src="../assets/plugin/jquery-ui/jquery-ui.min.js"></script><!-- jQuery UI 1.11.4 -->
@@ -29,7 +27,5 @@
 <script src="../assets/plugin/summernote/summernote-bs4.min.js"></script><!-- Summernote -->
 <script src="../assets/plugin/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script><!-- overlayScrollbars -->
 <script src="../assets/plugin/adminlte3/js/adminlte.js"></script><!-- AdminLTE App -->
-<script src="../assets/plugin/adminlte3/js/demo.js"></script><!-- AdminLTE for demo purposes -->
-<script src="../assets/plugin/adminlte3/js/pages/dashboard.js"></script><!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 </body>
 </html>
