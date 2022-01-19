@@ -81,5 +81,6 @@ defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest auto
 /*
  | 시스템에서 사용하는 공통상수
 */
-defined("CSS_VER")  || define('CSS_VER', "0.0.1"); // CSS버전
-defined("JS_VER")  || define('JS_VER', "0.0.1"); // JS버전
+defined("CSS_VER") || define("CSS_VER", "0.0.1"); // CSS버전
+defined("JS_VER") || define("JS_VER", "0.0.1"); // JS버전
+defined("PROGRAM_VER") || define("PROGRAM_VER", "0.0.1"); // 메뉴 하단의 프로그램 버전 릴리즈 될때마다 변경하자
