@@ -72,11 +72,48 @@ class UserModel extends Model
             $builder = $db->table("csl_user");
             $builder->select("user_idx");
             $builder->select("user_id");
+            $builder->select("count(*) as cnt");
             $builder->where("user_id", $user_id);
             $builder->where("user_password", $user_password);
             $builder->where("use_yn", "Y");
             $builder->where("del_yn", "N");
             $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
+        } catch(Throwable $t) {
+            $db_result = false;
+            $db_message = "조회에 오류가 발생했습니다.";
+        }
+
+        $model_result = array();
+        $model_result["result"] = $db_result;
+        $model_result["message"] = $db_message;
+        $model_result["db_info"] = $db_info;
+
+        return $model_result;
+    }
+
+    // 사용자 아이디 중복체크
+    public function getUserIdCheck($user_id)
+    {
+        $db_result = true;
+        $db_message = "조회에 성공했습니다.";
+        $db_info = new stdClass();
+
+        try {
+            $db = \Config\Database::connect();
+
+            $builder = $db->table("csl_user");
+            $builder->select("count(*) as cnt");
+            $builder->where("user_id", $user_id);
+            $builder->where("use_yn", "Y");
+            $builder->where("del_yn", "N");
+            $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
+
+            // 아이디가 중복된 경우 
+            $cnt = $db_info->cnt;
+            if($cnt > 0) {
+                $db_result = false;
+                $db_message = "중복된 아이디입니다. 다른 아이디를 입력해주세요.";
+            }
         } catch(Throwable $t) {
             $db_result = false;
             $db_message = "조회에 오류가 발생했습니다.";

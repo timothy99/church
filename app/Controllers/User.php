@@ -31,6 +31,9 @@ class User extends MyController
     // 로그인 처리
     public function loginProc()
     {
+        $user_model = new UserModel();
+        $session = \Config\Services::session(); // 세션을 초기화 합니다.
+
         $result = true;
         $message = "로그인이 완료되었습니다.";
 
@@ -51,8 +54,6 @@ class User extends MyController
 
         $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
 
-        $user_model = new UserModel();
-
         $data = array();
         $data["user_id"] = $user_id;
         $data["user_password"] = $user_password_enc;
@@ -64,15 +65,18 @@ class User extends MyController
         }
 
         $user_login_info = $model_result["db_info"];
+        if($user_login_info->cnt == 0) {
+            $result = false;
+            $message = "아이디나 암호를 확인해주시기 바랍니다.";
+        } else {
+            // 세션에 입력할 데이터
+            $user_session = array();
+            $user_session["user_idx"] = $user_login_info->user_idx;
+            $user_session["user_id"] = $user_login_info->user_id;
 
-        // 세션에 입력할 데이터
-        $user_session = array();
-        $user_session["user_idx"] = $user_login_info->user_idx;
-        $user_session["user_id"] = $user_login_info->user_id;
-
-        // 세션에 아이디와 idx입력
-        $session = \Config\Services::session(); // 세션을 초기화 합니다.
-        $session->set("user_session", $user_session);
+            // 세션에 아이디와 idx입력
+            $session->set("user_session", $user_session);
+        }
 
         $proc_result = array();
         $proc_result["result"] = $result;
@@ -97,6 +101,8 @@ class User extends MyController
     // 회원가입
     public function registerProc()
     {
+        $user_model = new UserModel();
+
         $result = true;
         $message = "회원가입이 완료되었습니다.";
 
@@ -129,12 +135,15 @@ class User extends MyController
             $message = "약관에 동의해 주세요.";
         }
 
+        // 아이디 중복체크
+        $model_result = $user_model->getUserIdCheck($user_id);
+        $result = $model_result["result"];
+        $message = $model_result["message"];
+
         if($result == true) {
             // 데이터 암호화
             $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
             $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
-
-            $user_model = new UserModel();
 
             $data = array();
             $data["user_name"] = $user_name_enc;
