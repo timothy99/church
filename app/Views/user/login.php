@@ -22,7 +22,7 @@
 
             <form id="frm" name="frm" method="post">
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" id="user_id" name="user_id" placeholder="아이디(이메일)" value="bjm@dongbuch.org">
+                    <input type="email" class="form-control" id="user_id" name="user_id" placeholder="아이디(이메일)">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-envelope"></span>
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" id="user_password" name="user_password" placeholder="암호" value="test1234!">
+                    <input type="password" class="form-control" id="user_password" name="user_password" placeholder="암호">
                     <div class="input-group-append">
                         <div class="input-group-text">
                             <span class="fas fa-lock"></span>
