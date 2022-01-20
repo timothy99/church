@@ -8,7 +8,8 @@ class UserModel extends Model
 {
     public function __construct()
     {
-        helper("log_helper");
+        helper("log_helper"); // 로그 헬퍼
+        helper("security_helper"); // 암호화 헬퍼
     }
 
     // 사용자 정보 입력
@@ -123,6 +124,41 @@ class UserModel extends Model
         $model_result["result"] = $db_result;
         $model_result["message"] = $db_message;
         $model_result["db_info"] = $db_info;
+
+        return $model_result;
+    }
+
+    // 사용자 목록 갖고 오기
+    public function getUserList($page, $rows, $search_text)
+    {
+        $db = \Config\Database::connect();
+
+        $offset = ($page-1)*$rows; // 오프셋 계산
+
+        $db_result = true;
+        $db_message = "조회에 성공했습니다.";
+
+        $builder = $db->table("csl_user");
+
+        if($search_text != null) {
+            $builder->like("user_id", $search_text);
+        }
+
+        $builder->where("del_yn", "N");
+        $builder->limit($rows, $offset);
+        $db_cnt = $builder->countAllResults(false); // 현제 데이터 총합
+        $db_list = $builder->get()->getResultObject(); // 쿼리 실행
+        foreach($db_list as $no => $val) { // 암호화 데이터 복호화
+            $user_name = $val->user_name;
+            $user_name_dec = getTextDecrypt($user_name); // 헬퍼를 이용한 암호화 데이터 복호화
+            $db_list[$no]->user_name = $user_name_dec;
+        }
+
+        $model_result = array();
+        $model_result["result"] = $db_result;
+        $model_result["message"] = $db_message;
+        $model_result["db_list"] = $db_list;
+        $model_result["db_cnt"] = $db_cnt;
 
         return $model_result;
     }
