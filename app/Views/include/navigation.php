@@ -43,14 +43,14 @@
             <nav class="mt-2"><!-- Sidebar Menu -->
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
-                    <li class="nav-item <? if ($segment0 == "dashboard") echo "menu-open"; ?>">
-                        <a href="/dashboard/dashboard" class="nav-link <? if ($segment0 == "dashboard") echo "active"; ?>">
+                    <li class="nav-item <?php if (in_array($segment0, ["dashboard"])  && in_array($segment1, ["dashboard"])) echo "menu-open"; ?>">
+                        <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, ["dashboard"])  && in_array($segment1, ["dashboard"])) echo "active"; ?>">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>대시보드<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/dashboard/dashboard" class="nav-link <? if ($segment0 == "dashboard" && in_array($segment1, ["dashboard"])) echo "active"; ?>">
+                                <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, ["dashboard"])  && in_array($segment1, ["dashboard"])) echo "active"; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>대시보드</p>
                                 </a>
@@ -58,22 +58,16 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item">
-                        <a href="/user/userList" class="nav-link">
+                    <li class="nav-item <?php if (in_array($segment0, ["user"])  && in_array($segment1, ["userList"])) echo "menu-open"; ?>">
+                        <a href="/user/userList" class="nav-link <?php if (in_array($segment0, ["user"])  && in_array($segment1, ["userList"])) echo "active"; ?>">
                             <i class="nav-icon fas fa-th"></i>
-                            <p>회원관리</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-copy"></i>
-                            <p>사이트관리<i class="fas fa-angle-left right"></i></p>
+                            <p>회원관리<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="pages/layout/top-nav.html" class="nav-link">
+                                <a href="/user/userList" class="nav-link <?php if (in_array($segment0, ["user"])  && in_array($segment1, ["userList"])) echo "active"; ?>">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>사진관리</p>
+                                    <p>회원목록</p>
                                 </a>
                             </li>
                         </ul>

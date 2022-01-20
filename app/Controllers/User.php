@@ -8,7 +8,8 @@ class User extends MyController
 {
     public function __construct()
     {
-        helper("security_helper"); // 암호화 관련 헬퍼
+        helper("security_helper"); // 암호화 헬퍼
+        helper("paging_helper"); // 페이징 헬퍼
     }
 
     // 로그인 페이지
@@ -162,6 +163,33 @@ class User extends MyController
         $proc_result["message"] = $message;
 
         echo json_encode($proc_result);
+    }
+
+    // 회원목록
+    public function userList()
+    {
+        $user_model = new UserModel();
+
+        $rows = 10;
+        $page = $this->request->getGet("p") ?? 1;
+        $search_text = $this->request->getGet("q", FILTER_SANITIZE_SPECIAL_CHARS);
+        $model_result = $user_model->getUserList($page, $rows, $search_text);
+
+        $cnt = $model_result["db_cnt"]; // 데이터 총합
+        $paging = getPaging($page, $rows, $cnt);
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["user_list"] = $model_result["db_list"];
+        $proc_result["cnt"] = $cnt;
+        $proc_result["paging"] = $paging;
+        $proc_result["start_row"] = ($page-1)*$rows+1;
+        $proc_result["p"] = $page;
+        $proc_result["q"] = $search_text;
+
+        $view = view("user/userList", $proc_result);
+        echo $view;
     }
 
 }

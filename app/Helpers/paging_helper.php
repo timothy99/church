@@ -21,6 +21,10 @@ function getPaging($page, $rows, $cnt)
         $start_page = $end_page-8;
     }
 
+    if($max_page < $end_page) {
+        $end_page = $max_page;
+    }
+
     $page_arr = array();
     for($i = $start_page; $i <= $end_page; $i++) {
         $active_class = "";
