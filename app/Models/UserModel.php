@@ -32,6 +32,7 @@ class UserModel extends Model
             $builder->set("user_id", $user_id);
             $builder->set("user_name", $user_name);
             $builder->set("user_password", $user_password);
+            $builder->set("admin_yn", "N");
             $builder->set("use_yn", "Y");
             $builder->set("del_yn", "N");
             $builder->set("ins_id", $user_id);
@@ -73,6 +74,7 @@ class UserModel extends Model
             $builder = $db->table("csl_user");
             $builder->select("user_idx");
             $builder->select("user_id");
+            $builder->select("admin_yn");
             $builder->select("count(*) as cnt");
             $builder->where("user_id", $user_id);
             $builder->where("user_password", $user_password);
@@ -162,5 +164,44 @@ class UserModel extends Model
 
         return $model_result;
     }
+
+    // 사용자 정보 갖고 오기
+    public function getUserInfo($user_idx)
+    {
+        $db_result = true;
+        $db_message = "조회에 성공했습니다.";
+        $db_info = new stdClass();
+
+        $user_idx = (int)$user_idx;
+
+        try {
+            $db = \Config\Database::connect();
+
+            $builder = $db->table("csl_user");
+            $builder->select("user_idx");
+            $builder->select("user_id");
+            $builder->select("user_name");
+            $builder->select("use_yn");
+            $builder->select("ins_date");
+            $builder->select("admin_yn");
+            $builder->select("count(*) as cnt");
+            $builder->where("use_yn", "Y");
+            $builder->where("del_yn", "N");
+            $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
+        } catch(Throwable $t) {
+            $db_result = false;
+            $db_message = "조회에 오류가 발생했습니다.";
+        }
+
+        $db_info->user_name = getTextDecrypt($db_info->user_name);
+
+        $model_result = array();
+        $model_result["result"] = $db_result;
+        $model_result["message"] = $db_message;
+        $model_result["db_info"] = $db_info;
+
+        return $model_result;
+    }
+
 
 }

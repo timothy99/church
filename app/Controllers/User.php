@@ -66,10 +66,17 @@ class User extends MyController
         }
 
         $user_login_info = $model_result["db_info"];
+        if ($user_login_info->admin_yn == "N") {
+            $result = false;
+            $message = "아직 관리자로 승인되지 않았습니다";
+        }
+
         if($user_login_info->cnt == 0) {
             $result = false;
             $message = "아이디나 암호를 확인해주시기 바랍니다.";
-        } else {
+        }
+
+        if($result == true) {
             // 세션에 입력할 데이터
             $user_session = array();
             $user_session["user_idx"] = $user_login_info->user_idx;
@@ -192,4 +199,20 @@ class User extends MyController
         echo $view;
     }
 
+    // 회원보기
+    public function userInfo()
+    {
+        $user_model = new UserModel();
+
+        $user_idx = $this->request->uri->getSegment(3);
+        $model_result = $user_model->getUserInfo($user_idx);
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["user_info"] = $model_result["db_info"];
+
+        $view = view("user/userInfo", $proc_result);
+        echo $view;
+    }
 }
