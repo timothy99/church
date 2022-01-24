@@ -1,6 +1,7 @@
 <?php   include_once APPPATH."Views/include/header.php"; // 헤더 ?>
 <?php   include_once APPPATH."Views/include/navigation.php"; // 네비게이션(상단, 좌측 메뉴) ?>
 
+<form id="frm" name="frm">
 <input type="hidden" id="user_idx" name="user_idx" value="<?=$user_info->user_idx ?>">
 
     <!-- Content Wrapper. Contains page content -->
@@ -39,19 +40,25 @@
                                         </tr>
                                         <tr>
                                             <th>이름</th>
-                                            <td><?=$user_info->user_name ?></td>
+                                            <td><input type="text" class="form-control" id="user_name" name="user_name" value="<?=$user_info->user_name ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>관리자 여부</th>
-                                            <td><?=$user_info->admin_yn ?></td>
+                                            <td>
+                                                <select class="form-control" id="admin_yn" name="admin_yn">
+                                                    <option value="N" <?php if($user_info->admin_yn == "N") echo "selected"; ?>>N</option>
+                                                    <option value="Y" <?php if($user_info->admin_yn == "Y") echo "selected"; ?>>Y</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                         <tr>
                                             <th>사용 여부</th>
-                                            <td><?=$user_info->use_yn ?></td>
-                                        </tr>
-                                        <tr>
-                                            <th>등록일</th>
-                                            <td><?=$user_info->ins_date ?></td>
+                                            <td>
+                                                <select class="form-control" id="use_yn" name="use_yn">
+                                                    <option value="N" <?php if($user_info->use_yn == "N") echo "selected"; ?>>N</option>
+                                                    <option value="Y" <?php if($user_info->use_yn == "Y") echo "selected"; ?>>Y</option>
+                                                </select>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -59,8 +66,8 @@
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                                 <div class="float-right">
-                                    <button class="btn btn-info" id="user_edit" name="user_edit">수정</button>
-                                    <button class="btn btn-danger" id="user_delete" name="user_delete">삭제</button>
+                                    <input type="button" class="btn btn-info" id="user_save" name="user_save" value="저장">
+                                    <input type="button" class="btn btn-danger" id="user_cancel" name="user_cancel" value="취소">
                                 </div>
                             </div>
                         </div><!-- /.card -->
@@ -69,14 +76,28 @@
             </div><!-- /.container-fluid -->
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
+</form>
 
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
     $(function() {
-        $("#user_edit").click(function(e) {
-            var user_idx = $("#user_idx").val();
-            location.href = "/user/userEdit/<?=$user_info->user_idx ?>";
+        $("#user_save").click(function(e) {
+            $.ajax({
+                url: "/user/userEditProc",
+                type: "POST",
+                dataType: "json",
+                data: $("#frm").serialize(),
+                success: function(proc_result) {
+                    var result = proc_result.result;
+                    var message = proc_result.message;
+                    alert(message);
+                    if(result == true) {
+                        location.href = "/user/userInfo/<?=$user_info->user_idx ?>";
+                    }
+                }
+            });
         });
     });
+
 </script>
