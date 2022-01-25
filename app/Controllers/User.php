@@ -284,4 +284,38 @@ class User extends MyController
         echo json_encode($proc_result);
     }
 
+    // 회원 수정 처리
+    public function userDelete()
+    {
+        $user_model = new UserModel();
+
+        $result = true;
+        $message = "회원삭제가 완료되었습니다.";
+
+        $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $session = \Config\Services::session();
+
+        // 세션의 정보중 아이디를 갖고 옵니다.
+        $user_session = $session->get("user_session");
+        $upd_id = $user_session["user_id"];
+
+
+        $data = array();
+        $data["user_idx"] = $user_idx;
+        $data["upd_id"] = $upd_id;
+
+        $model_result = $user_model->deleteUserInfo($data);
+        $result = $model_result["result"];
+        if($result == false) {
+            $message = $model_result["message"];
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        echo json_encode($proc_result);
+    }
+
 }

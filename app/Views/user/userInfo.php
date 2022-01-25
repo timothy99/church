@@ -76,7 +76,28 @@
     $(function() {
         $("#user_edit").click(function(e) {
             var user_idx = $("#user_idx").val();
-            location.href = "/user/userEdit/<?=$user_info->user_idx ?>";
+            location.href = "/user/userEdit/"+user_idx;
         });
+
+        $("#user_delete").click(function(e) {
+            var user_idx = $("#user_idx").val();
+            if(confirm("삭제하시겠습니까?")) {
+                $.ajax({
+                    url: "/user/userDelete",
+                    type: "post",
+                    dataType: "json",
+                    data: {user_idx : user_idx},
+                    success: function(proc_result) {
+                        var result = proc_result.result;
+                        var message = proc_result.message;
+                        alert(message);
+                        if(result == true) {
+                            location.href = "/user/userList";
+                        }
+                    }
+                });
+            }
+        });
+
     });
 </script>
