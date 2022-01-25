@@ -1,0 +1,1 @@
+alter table csl_user add admin_yn enum('Y', 'N') default 'N' comment '관리자여부' after user_password;

@@ -55,8 +55,8 @@
 ?>
                                         <tr>
                                             <td class="text-center"><?=$start_row+$no ?></td>
-                                            <td><?=$val->user_id ?></td>
-                                            <td><?=$val->user_name ?></td>
+                                            <td><a href="/user/userInfo/<?=$val->user_idx ?>"><?=$val->user_id ?></a></td>
+                                            <td><a href="/user/userInfo/<?=$val->user_idx ?>"><?=$val->user_name ?></a></td>
                                             <td><?=$val->ins_date ?></td>
                                             <td><?=$val->ins_id ?></td>
                                         </tr>
