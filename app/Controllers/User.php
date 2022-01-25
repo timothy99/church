@@ -66,10 +66,17 @@ class User extends MyController
         }
 
         $user_login_info = $model_result["db_info"];
+        if ($user_login_info->admin_yn == "N") {
+            $result = false;
+            $message = "아직 관리자로 승인되지 않았습니다";
+        }
+
         if($user_login_info->cnt == 0) {
             $result = false;
             $message = "아이디나 암호를 확인해주시기 바랍니다.";
-        } else {
+        }
+
+        if($result == true) {
             // 세션에 입력할 데이터
             $user_session = array();
             $user_session["user_idx"] = $user_login_info->user_idx;
@@ -190,6 +197,125 @@ class User extends MyController
 
         $view = view("user/userList", $proc_result);
         echo $view;
+    }
+
+    // 회원보기
+    public function userInfo()
+    {
+        $user_model = new UserModel();
+
+        $user_idx = $this->request->uri->getSegment(3);
+        $model_result = $user_model->getUserInfo($user_idx);
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["user_info"] = $model_result["db_info"];
+
+        $view = view("user/userInfo", $proc_result);
+        echo $view;
+    }
+
+    // 회원보기
+    public function userEdit()
+    {
+        $user_model = new UserModel();
+
+        $user_idx = $this->request->uri->getSegment(3);
+        $model_result = $user_model->getUserInfo($user_idx);
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["user_info"] = $model_result["db_info"];
+
+        $view = view("user/userEdit", $proc_result);
+        echo $view;
+    }
+
+    // 회원 수정 처리
+    public function userEditProc()
+    {
+        $user_model = new UserModel();
+
+        $result = true;
+        $message = "회원수정이 완료되었습니다.";
+
+        $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
+        $user_name = $this->request->getPost("user_name", FILTER_SANITIZE_SPECIAL_CHARS);
+        $admin_yn = $this->request->getPost("admin_yn", FILTER_SANITIZE_SPECIAL_CHARS);
+        $use_yn = $this->request->getPost("use_yn", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $session = \Config\Services::session();
+
+        // 세션의 정보중 아이디를 갖고 옵니다.
+        $user_session = $session->get("user_session");
+        $upd_id = $user_session["user_id"];
+
+        $user_name = trim($user_name);
+
+        if($user_name == null) {
+            $result = false;
+            $message = "이름을 입력해주세요.";
+        }
+
+        if($result == true) {
+            // 데이터 암호화
+            $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
+
+            $data = array();
+            $data["user_idx"] = $user_idx;
+            $data["user_name"] = $user_name_enc;
+            $data["admin_yn"] = $admin_yn;
+            $data["use_yn"] = $use_yn;
+            $data["upd_id"] = $upd_id;
+
+            $model_result = $user_model->updateUserInfo($data);
+            $result = $model_result["result"];
+            if($result == false) {
+                $message = $model_result["message"];
+            }
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        echo json_encode($proc_result);
+    }
+
+    // 회원 수정 처리
+    public function userDelete()
+    {
+        $user_model = new UserModel();
+
+        $result = true;
+        $message = "회원삭제가 완료되었습니다.";
+
+        $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
+
+        $session = \Config\Services::session();
+
+        // 세션의 정보중 아이디를 갖고 옵니다.
+        $user_session = $session->get("user_session");
+        $upd_id = $user_session["user_id"];
+
+
+        $data = array();
+        $data["user_idx"] = $user_idx;
+        $data["upd_id"] = $upd_id;
+
+        $model_result = $user_model->deleteUserInfo($data);
+        $result = $model_result["result"];
+        if($result == false) {
+            $message = $model_result["message"];
+        }
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        echo json_encode($proc_result);
     }
 
 }
