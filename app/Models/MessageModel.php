@@ -26,4 +26,26 @@ class MessageModel extends Model
         $email->send(); // 발송
     }
 
+    // 텔레그램 보내기
+    public function sendTelegram($chat_id, $message)
+    {
+        $bot_host = env("telegram.bot.host");
+        $bot_id = env("telegram.bot.id");
+
+        $telegram_url = $bot_host."/".$bot_id."/sendmessage?chat_id=".$chat_id."&user=1&pass=2&phone=3&text=".$message;
+
+        $ch = curl_init(); // curl 초기화
+        $headers = array(); //헤더정보
+        array_push($headers, "cache-control: no-cache");
+        array_push($headers, "content-type: application/json; charset=utf-8");
+
+        curl_setopt($ch,CURLOPT_URL, $telegram_url);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
+        curl_setopt($ch,CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        curl_exec($ch);
+        curl_close($ch);
+    }
+
 }
