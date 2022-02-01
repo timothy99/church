@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
+use App\Models\MessageModel;
 
 class User extends MyController
 {
@@ -110,6 +111,7 @@ class User extends MyController
     public function registerProc()
     {
         $user_model = new UserModel();
+        $message_model = new MessageModel();
 
         $result = true;
         $message = "회원가입이 완료되었습니다.";
@@ -163,6 +165,15 @@ class User extends MyController
             if($result == false) {
                 $message = $model_result["message"];
             }
+        }
+
+        // 회원가입이 완료된 경우 이메일을 발송합니다.
+        if($result == true) {
+            $from = env("email.smtp.user");
+            $from_name = env("email.smtp.name");
+            $title = "가입을 환영합니다";
+            $contents = "가입넷 가입을 환영합니다\n우리의 소중한 사람이 되어주셔서 고맙습니다";
+            $message_model->sendEmail($from, $from_name, $user_id, $title, $contents);
         }
 
         $proc_result = array();
