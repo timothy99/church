@@ -3,7 +3,6 @@
 namespace App\Controllers;
 
 use App\Models\UserModel;
-use App\Models\MessageModel;
 
 class User extends MyController
 {
@@ -317,19 +316,6 @@ class User extends MyController
         $proc_result["message"] = $message;
 
         echo json_encode($proc_result);
-    }
-
-    public function test()
-    {
-        $message_model = new MessageModel();
-
-        $from = "bjm2@dongbuch.org";
-        $from_name = "배진모";
-        $to = "joydisk@gmail.com";
-        $title = "회원가입을 축하합니다.";
-        $contents = "가원넷 회원으로 가입해주셨습니다";
-
-        $email_send = $message_model->sendEmail($from, $from_name, $to, $title, $contents);
     }
 
 }
