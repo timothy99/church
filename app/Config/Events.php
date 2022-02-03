@@ -4,6 +4,7 @@ namespace Config;
 
 use CodeIgniter\Events\Events;
 use CodeIgniter\Exceptions\FrameworkException;
+use App\Models\AuthorityModel; // 권한관리 모델
 
 /*
  * --------------------------------------------------------------------
@@ -47,4 +48,15 @@ Events::on('pre_system', static function () {
         Events::on('DBQuery', 'CodeIgniter\Debug\Toolbar\Collectors\Database::collect');
         Services::toolbar()->respond();
     }
+});
+
+/*
+    사용자 추가 이벤트
+    권한 모델을 만들어서 이벤트 체크
+*/
+Events::on("post_controller_constructor", function () {
+    $authority_model = new AuthorityModel();
+
+    $authority_model->checkIp(); // 접근 가능한 IP인지 확인
+    $authority_model->checkLogin(); // 로그인이 필요한 url인지 확인
 });
