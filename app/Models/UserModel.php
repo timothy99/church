@@ -8,7 +8,6 @@ class UserModel extends Model
 {
     public function __construct()
     {
-        helper("log_helper"); // 로그 헬퍼
         helper("security_helper"); // 암호화 헬퍼
     }
 
@@ -81,7 +80,7 @@ class UserModel extends Model
             $builder->where("use_yn", "Y");
             $builder->where("del_yn", "N");
             $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
-        } catch(Throwable $t) {
+        } catch (Throwable $t) {
             $db_result = false;
             $db_message = "조회에 오류가 발생했습니다.";
         }
@@ -111,13 +110,13 @@ class UserModel extends Model
             $builder->where("del_yn", "N");
             $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
 
-            // 아이디가 중복된 경우 
+            // 아이디가 중복된 경우
             $cnt = $db_info->cnt;
-            if($cnt > 0) {
+            if ($cnt > 0) {
                 $db_result = false;
                 $db_message = "중복된 아이디입니다. 다른 아이디를 입력해주세요.";
             }
-        } catch(Throwable $t) {
+        } catch (Throwable $t) {
             $db_result = false;
             $db_message = "조회에 오류가 발생했습니다.";
         }
@@ -142,7 +141,7 @@ class UserModel extends Model
 
         $builder = $db->table("csl_user");
 
-        if($search_text != null) {
+        if ($search_text != null) {
             $builder->like("user_id", $search_text);
         }
 
@@ -150,7 +149,7 @@ class UserModel extends Model
         $builder->limit($rows, $offset);
         $db_cnt = $builder->countAllResults(false); // 현제 데이터 총합
         $db_list = $builder->get()->getResultObject(); // 쿼리 실행
-        foreach($db_list as $no => $val) { // 암호화 데이터 복호화
+        foreach ($db_list as $no => $val) { // 암호화 데이터 복호화
             $user_name = $val->user_name;
             $user_name_dec = getTextDecrypt($user_name); // 헬퍼를 이용한 암호화 데이터 복호화
             $db_list[$no]->user_name = $user_name_dec;
@@ -188,7 +187,7 @@ class UserModel extends Model
             $builder->where("use_yn", "Y");
             $builder->where("del_yn", "N");
             $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
-        } catch(Throwable $t) {
+        } catch (Throwable $t) {
             $db_result = false;
             $db_message = "조회에 오류가 발생했습니다.";
         }
@@ -286,5 +285,4 @@ class UserModel extends Model
 
         return $model_result;
     }
-
 }

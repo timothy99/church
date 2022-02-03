@@ -5,7 +5,7 @@ namespace App\Controllers;
 use App\Models\UserModel;
 use App\Models\MessageModel;
 
-class User extends MyController
+class User extends BaseController
 {
     public function __construct()
     {
@@ -44,12 +44,12 @@ class User extends MyController
 
         $user_id = trim($user_id);
 
-        if($user_id == null) {
+        if ($user_id == null) {
             $result = false;
             $message = "아이디를 입력해주세요.";
         }
 
-        if($user_password == null) {
+        if ($user_password == null) {
             $result = false;
             $message = "암호를 입력해주세요.";
         }
@@ -62,7 +62,7 @@ class User extends MyController
 
         $model_result = $user_model->getLoginInfo($data);
         $result = $model_result["result"];
-        if($result == false) {
+        if ($result == false) {
             $message = $model_result["message"];
         }
 
@@ -72,12 +72,12 @@ class User extends MyController
             $message = "아직 관리자로 승인되지 않았습니다";
         }
 
-        if($user_login_info->cnt == 0) {
+        if ($user_login_info->cnt == 0) {
             $result = false;
             $message = "아이디나 암호를 확인해주시기 바랍니다.";
         }
 
-        if($result == true) {
+        if ($result == true) {
             // 세션에 입력할 데이터
             $user_session = array();
             $user_session["user_idx"] = $user_login_info->user_idx;
@@ -125,22 +125,22 @@ class User extends MyController
         $user_name = trim($user_name);
         $user_id = trim($user_id);
 
-        if($user_name == null) {
+        if ($user_name == null) {
             $result = false;
             $message = "이름을 입력해주세요.";
         }
 
-        if($user_id == null) {
+        if ($user_id == null) {
             $result = false;
             $message = "아이디를 입력해주세요.";
         }
 
-        if($user_password != $user_password2) {
+        if ($user_password != $user_password2) {
             $result = false;
             $message =  "입력된 암호가 다릅니다.";
         }
 
-        if($user_terms != "agree") {
+        if ($user_terms != "agree") {
             $result = false;
             $message = "약관에 동의해 주세요.";
         }
@@ -150,7 +150,7 @@ class User extends MyController
         $result = $model_result["result"];
         $message = $model_result["message"];
 
-        if($result == true) {
+        if ($result == true) {
             // 데이터 암호화
             $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
             $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
@@ -162,13 +162,13 @@ class User extends MyController
 
             $model_result = $user_model->insertUserInfo($data);
             $result = $model_result["result"];
-            if($result == false) {
+            if ($result == false) {
                 $message = $model_result["message"];
             }
         }
 
         // 회원가입이 완료된 경우 이메일을 발송합니다.
-        if($result == true) {
+        if ($result == true) {
             $from = env("email.smtp.user");
             $from_name = env("email.smtp.name");
             $title = "가입을 환영합니다";
@@ -265,12 +265,12 @@ class User extends MyController
 
         $user_name = trim($user_name);
 
-        if($user_name == null) {
+        if ($user_name == null) {
             $result = false;
             $message = "이름을 입력해주세요.";
         }
 
-        if($result == true) {
+        if ($result == true) {
             // 데이터 암호화
             $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
 
@@ -283,7 +283,7 @@ class User extends MyController
 
             $model_result = $user_model->updateUserInfo($data);
             $result = $model_result["result"];
-            if($result == false) {
+            if ($result == false) {
                 $message = $model_result["message"];
             }
         }
@@ -318,7 +318,7 @@ class User extends MyController
 
         $model_result = $user_model->deleteUserInfo($data);
         $result = $model_result["result"];
-        if($result == false) {
+        if ($result == false) {
             $message = $model_result["message"];
         }
 
@@ -328,5 +328,4 @@ class User extends MyController
 
         echo json_encode($proc_result);
     }
-
 }
