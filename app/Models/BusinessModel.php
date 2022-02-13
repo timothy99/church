@@ -1,24 +1,22 @@
 <?php namespace App\Models;
 
 use CodeIgniter\Model;
+use App\Models\TextModel;
 
 class BusinessModel extends Model
 {
     /**
      * @author 배진모
      * @see 홈택스의 휴폐업 조회 정보 갖고 오기
-     * @param char license_num - 사업자번호
+     * @param string license_num - 사업자번호
      * @return json 홈택스 조회 결과
      */
-    public function getBusinessInfo($data)
+    public function getBusinessInfo($license_num)
     {
         $result = true;
         $message = "조회가 완료되었습니다";
 
-        $query_model = new QueryModel();
         $text_model = new TextModel();
-
-        $license_num = $data["license_num"];
 
         $business_number = $text_model->getBusinessNumber($license_num);
 
@@ -42,6 +40,7 @@ class BusinessModel extends Model
                             "Pragma: no-cache",
                             "SOAPAction: \"run\""
         );
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -65,7 +64,7 @@ class BusinessModel extends Model
             $xml_arr = simplexml_load_string($data);
             $result_text = $xml_arr->trtCntn[0];
             $business_no = substr($business_number,0,3)."-".substr($business_number,3,2)."-".substr($business_number,5,5); // 사업자번호 분리
-            $today = date("y-m-d");
+            $today = date("Y-m-d H:i:s");
             $today_text = "[".$today."]";
             $memo_text = $today_text.$result_text;
 
