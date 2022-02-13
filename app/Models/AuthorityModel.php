@@ -23,19 +23,6 @@ class AuthorityModel extends Model
         }
     }
 
-    // 세션정보를 체크해서 로그인이 되었는지 확인
-    public function checkSession()
-    {
-        // 세션을 초기화 합니다.
-        $session = \Config\Services::session();
-
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $is_check_session = isset($user_session["user_id"]);
-
-        return $is_check_session;
-    }
-
     // 로그인없이도 접근이 허용되는 url인지 확인한다
     public function checkLogin()
     {

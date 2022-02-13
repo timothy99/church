@@ -79,6 +79,18 @@
                             </li>
                         </ul>
                     </li>
+
+<?php
+    $segment0_arr = ["business"];
+    $segment1_arr = ["businessSearch"];
+?>
+                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
+                        <a href="/business/businessSearch" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>휴폐업조회</p>
+                        </a>
+                    </li>
+
                 </ul>
             </nav><!-- /.sidebar-menu -->
         </div><!-- /.sidebar -->
