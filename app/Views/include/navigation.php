@@ -47,14 +47,14 @@
     $segment0_arr = ["dashboard"];
     $segment1_arr = ["dashboard"];
 ?>
-                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
-                        <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
+                        <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "active"; ?>">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>대시보드<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                                <a href="/dashboard/dashboard" class="nav-link <?php if (in_array($segment0, $segment0_arr) && $segment1 == "dashboard") echo "active"; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>대시보드</p>
                                 </a>
@@ -65,14 +65,14 @@
     $segment0_arr = ["user"];
     $segment1_arr = ["userList", "userInfo"];
 ?>
-                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
-                        <a href="/user/userList" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
+                        <a href="/user/userList" class="nav-link <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "active"; ?>">
                             <i class="nav-icon fas fa-th"></i>
                             <p>회원관리<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/user/userList" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                                <a href="/user/userList" class="nav-link <?php if (in_array($segment0, $segment0_arr) && ($segment1 == "userList" || $segment1 == "userInfo")) echo "active"; ?>">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>회원목록</p>
                                 </a>
@@ -82,13 +82,27 @@
 
 <?php
     $segment0_arr = ["business"];
-    $segment1_arr = ["businessSearch"];
+    $segment1_arr = ["businessApiSearch", "businessSearch"];
 ?>
-                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
-                        <a href="/business/businessSearch" class="nav-link <?php if (in_array($segment0, $segment0_arr)  && in_array($segment1, $segment1_arr)) echo "active"; ?>">
+                    <li class="nav-item <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "menu-open"; ?>">
+                        <a href="/business/businessApiSearch" class="nav-link <?php if (in_array($segment0, $segment0_arr) && in_array($segment1, $segment1_arr)) echo "active"; ?>">
                             <i class="nav-icon fas fa-book"></i>
-                            <p>휴폐업조회</p>
+                            <p>휴폐업조회<i class="fas fa-angle-left right"></i></p>
                         </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/business/businessApiSearch" class="nav-link <?php if (in_array($segment0, $segment0_arr) && $segment1 == "businessApiSearch") echo "active"; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>휴폐업조회(API)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="/business/businessSearch" class="nav-link <?php if (in_array($segment0, $segment0_arr) && $segment1 == "businessSearch") echo "active"; ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>휴폐업조회(XML)</p>
+                                </a>
+                            </li>
+                        </ul>
                     </li>
 
                 </ul>

@@ -9,12 +9,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">휴폐업조회(XML)</h1>
+                        <h1 class="m-0">휴폐업조회(API)</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">휴폐업조회(XML)</li>
+                            <li class="breadcrumb-item active">휴폐업조회(API)</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -77,23 +77,23 @@
 
     function search() {
         $.ajax({
-            url: "/business/businessInfo",
+            url: "/business/businessApiInfo",
             type: "POST",
             dataType: "json",
             async: true,
             data: $("#frm").serialize(),
-            success: function(proc_result) {
-                var result = proc_result.result;
-                var message = proc_result.message;
-                var business_no = proc_result.business_no+" 조회결과";
-                var memo_text = proc_result.memo_text;
+            success: function(business_api_info) {
+                var result = business_api_info.result;
+                var message = business_api_info.message;
+                var business_info = business_api_info.business_info;
                 if(result == true) {
-                    $("#business_no").html(business_no);
-                    $("#memo_text").html(memo_text);
+                    $("#business_no").html(business_info.business_number+"의 조회결과");
+                    $("#memo_text").html(business_info.status_name+"["+business_info.status_code+"]<br>"+business_info.tax_type_name+"["+business_info.tax_type_code+"]");
                 } else {
                     alert(message);
                 }
             }
         });
     }
+
 </script>
