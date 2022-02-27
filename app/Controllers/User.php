@@ -4,15 +4,11 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\MessageModel;
+use App\Models\PagingModel;
+use App\Models\SecurityModel;
 
 class User extends BaseController
 {
-    public function __construct()
-    {
-        helper("security_helper"); // 암호화 헬퍼
-        helper("paging_helper"); // 페이징 헬퍼
-    }
-
     // 로그인 페이지
     public function login()
     {
@@ -34,6 +30,8 @@ class User extends BaseController
     public function loginProc()
     {
         $user_model = new UserModel();
+        $security_model = new SecurityModel();
+
         $session = \Config\Services::session(); // 세션을 초기화 합니다.
 
         $result = true;
@@ -54,7 +52,7 @@ class User extends BaseController
             $message = "암호를 입력해주세요.";
         }
 
-        $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
+        $user_password_enc = $security_model->getPasswordEncrypt($user_password); // 암호의 일방향 암호화
 
         $data = array();
         $data["user_id"] = $user_id;
@@ -112,6 +110,7 @@ class User extends BaseController
     {
         $user_model = new UserModel();
         $message_model = new MessageModel();
+        $security_model = new SecurityModel();
 
         $result = true;
         $message = "회원가입이 완료되었습니다.";
@@ -152,8 +151,8 @@ class User extends BaseController
 
         if ($result == true) {
             // 데이터 암호화
-            $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
-            $user_password_enc = getPasswordEncrypt($user_password); // 암호의 일방향 암호화
+            $user_name_enc = $security_model->getTextEncrypt($user_name); // 이름 암호화
+            $user_password_enc = $security_model->getPasswordEncrypt($user_password); // 암호의 일방향 암호화
 
             $data = array();
             $data["user_name"] = $user_name_enc;
@@ -172,7 +171,7 @@ class User extends BaseController
             $from = env("email.smtp.user");
             $from_name = env("email.smtp.name");
             $title = "가입을 환영합니다";
-            $contents = "가입넷 가입을 환영합니다\n우리의 소중한 사람이 되어주셔서 고맙습니다";
+            $contents = "가입을 환영합니다\n우리의 소중한 사람이 되어주셔서 고맙습니다";
             $message_model->sendEmail($from, $from_name, $user_id, $title, $contents);
         }
 
@@ -187,6 +186,7 @@ class User extends BaseController
     public function userList()
     {
         $user_model = new UserModel();
+        $paging_model = new PagingModel();
 
         $rows = 10;
         $page = $this->request->getGet("p") ?? 1;
@@ -194,7 +194,7 @@ class User extends BaseController
         $model_result = $user_model->getUserList($page, $rows, $search_text);
 
         $cnt = $model_result["db_cnt"]; // 데이터 총합
-        $paging = getPaging($page, $rows, $cnt);
+        $paging = $paging_model->getPaging($page, $rows, $cnt);
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
@@ -248,6 +248,7 @@ class User extends BaseController
     public function userEditProc()
     {
         $user_model = new UserModel();
+        $security_model= new SecurityModel();
 
         $result = true;
         $message = "회원수정이 완료되었습니다.";
@@ -272,7 +273,7 @@ class User extends BaseController
 
         if ($result == true) {
             // 데이터 암호화
-            $user_name_enc = getTextEncrypt($user_name); // 이름 암호화
+            $user_name_enc = $security_model->getTextEncrypt($user_name); // 이름 암호화
 
             $data = array();
             $data["user_idx"] = $user_idx;
