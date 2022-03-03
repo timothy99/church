@@ -3,15 +3,24 @@
 use CodeIgniter\Model;
 use App\Models\TextModel;
 
+/**
+ * [Description BusinessModel]
+ * 사업자 관련
+ */
 class BusinessModel extends Model
 {
+
     /**
-     * @author 배진모
-     * @see 홈택스의 휴폐업 조회 정보 갖고 오기
-     * @param string license_num - 사업자번호
-     * @return array 홈택스 조회 결과
+     * [Description for getBusinessInfo]
+     * 홈택스의 휴폐업정보 갖고오기(XML방식)
+     * 
+     * @param   string  $license_num    사업자번호
+     * 
+     * @return  array   $proc_result
+     * 
+     * @author  timothy99
      */
-    public function getBusinessInfo($license_num)
+    public function getBusinessInfo(string $license_num) : array
     {
         $result = true;
         $message = "조회가 완료되었습니다";
@@ -86,12 +95,16 @@ class BusinessModel extends Model
     }
 
     /**
-     * @author 배진모
-     * @see 홈택스의 휴폐업 조회 정보 갖고 오기 API
-     * @param string business_number - 사업자번호
-     * @return array 홈택스 조회 결과
+     * [Description for getBusinessApiInfo]
+     * 홈택스의 휴폐업 조회 정보 갖고 오기 API
+     *
+     * @param   string  $business_number    사업자번호
+     * 
+     * @return  array
+     * 
+     * @author  timothy99
      */
-    public function getBusinessApiInfo($business_number)
+    public function getBusinessApiInfo(string $business_number) : array
     {
         $result = true;
         $message = "조회가 완료되었습니다";

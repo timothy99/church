@@ -10,7 +10,7 @@ class Business extends BaseController
      * @param null
      * @return view
      */
-    public function businessSearch()
+    public function businessSearch() : string
     {
         $view = view("business/businessSearch");
 
@@ -18,12 +18,14 @@ class Business extends BaseController
     }
 
     /**
-     * @author 배진모
-     * @see 휴폐업 조회
-     * @param post
-     * @return json
+     * [Description for businessInfo]
+     * 휴폐업 조회
+     *
+     * @return  string
+     * 
+     * @author  timothy99
      */
-    public function businessInfo()
+    public function businessInfo() : void
     {
         $business_model = new BusinessModel();
 
