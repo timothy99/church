@@ -5,10 +5,12 @@ use App\Models\BusinessModel;
 class Business extends BaseController
 {
     /**
-     * @author 배진모
-     * @see 휴폐업 조회 화면
-     * @param null
-     * @return view
+     * [Description for businessSearch]
+     * 휴폐업 조회 화면
+     *
+     * @return string
+     * 
+     * @author     timothy99 
      */
     public function businessSearch() : string
     {
@@ -37,12 +39,14 @@ class Business extends BaseController
     }
 
     /**
-     * @author 배진모
-     * @see 휴폐업 조회 화면 API로 조회하는 화면
-     * @param null
-     * @return view
+     * [Description for businessApiSearch]
+     * 휴폐업 조회 화면 API로 조회하는 화면
+     *
+     * @return string
+     * 
+     * @author     timothy99 
      */
-    public function businessApiSearch()
+    public function businessApiSearch() : string
     {
         $view = view("business/businessApiSearch");
 
@@ -50,12 +54,14 @@ class Business extends BaseController
     }
 
     /**
-     * @author 배진모
-     * @see 휴폐업 조회 API
-     * @param post
-     * @return json
+     * [Description for businessApiInfo]
+     * 휴폐업 조회 API
+     *
+     * @return view
+     * 
+     * @author     timothy99 
      */
-    public function businessApiInfo()
+    public function businessApiInfo() : void
     {
         $business_model = new BusinessModel();
 

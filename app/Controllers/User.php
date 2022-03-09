@@ -9,15 +9,29 @@ use App\Models\SecurityModel;
 
 class User extends BaseController
 {
-    // 로그인 페이지
-    public function login()
+    /**
+     * [Description for login]
+     * 로그인 페이지
+     *
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function login() : void
     {
         $view = view("user/login");
         echo $view;
     }
 
-    // 로그인 페이지
-    public function logout()
+    /**
+     * [Description for logout]
+     * 로그인 페이지
+     *
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function logout() : void
     {
         $session = \Config\Services::session();
         $session->destroy(); // 세션 삭제
@@ -26,7 +40,14 @@ class User extends BaseController
         exit;
     }
 
-    // 로그인 처리
+    /**
+     * [Description for loginProc]
+     * 로그인 처리
+     *
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function loginProc()
     {
         $user_model = new UserModel();
@@ -92,20 +113,40 @@ class User extends BaseController
         echo json_encode($proc_result);
     }
 
-    // 암호 분실 확인
+    /**
+     * [Description for forgot]
+     * 암호 분실 확인 - 아직 작업중
+     *
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function forgot()
     {
         // do something
     }
 
-    // 회원가입
+    /**
+     * [Description for register]
+     * 회원가입 화면
+     *
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function register()
     {
         $view = view("user/register");
         echo $view;
     }
 
-    // 회원가입
+    /**
+     * [Description for registerProc]
+     * 회원가입 처리
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function registerProc()
     {
         $user_model = new UserModel();
@@ -182,7 +223,13 @@ class User extends BaseController
         echo json_encode($proc_result);
     }
 
-    // 회원목록
+    /**
+     * [Description for userList]
+     * 회원목록
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function userList()
     {
         $user_model = new UserModel();
@@ -210,7 +257,14 @@ class User extends BaseController
         echo $view;
     }
 
-    // 회원보기
+    /**
+     * [Description for userInfo]
+     * 회원보기
+     *
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function userInfo()
     {
         $user_model = new UserModel();
@@ -227,7 +281,14 @@ class User extends BaseController
         echo $view;
     }
 
-    // 회원보기
+    /**
+     * [Description for userEdit]
+     * 회원 정보 수정
+     *
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function userEdit()
     {
         $user_model = new UserModel();
@@ -244,7 +305,13 @@ class User extends BaseController
         echo $view;
     }
 
-    // 회원 수정 처리
+    /**
+     * [Description for userEditProc]
+     * 회원 정보 수정 처리
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function userEditProc()
     {
         $user_model = new UserModel();
@@ -296,7 +363,13 @@ class User extends BaseController
         echo json_encode($proc_result);
     }
 
-    // 회원 수정 처리
+    /**
+     * [Description for userDelete]
+     * 회원삭제
+     * @return [type]
+     * 
+     * @author     timothy99 
+     */
     public function userDelete()
     {
         $user_model = new UserModel();
@@ -311,7 +384,6 @@ class User extends BaseController
         // 세션의 정보중 아이디를 갖고 옵니다.
         $user_session = $session->get("user_session");
         $upd_id = $user_session["user_id"];
-
 
         $data = array();
         $data["user_idx"] = $user_idx;
