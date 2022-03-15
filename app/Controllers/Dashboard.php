@@ -9,7 +9,14 @@ class Dashboard extends BaseController
         $this->dashboard();
     }
     
-    public function dashboard()
+    /**
+     * [Description for dashboard]
+     *
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function dashboard() : void
     {
         $view = view("dashboard/dashboard");
         echo $view;

@@ -3,14 +3,10 @@
 use CodeIgniter\Model;
 use Throwable;
 use stdClass;
+use App\Models\SecurityModel;
 
 class UserModel extends Model
 {
-    public function __construct()
-    {
-        helper("security_helper"); // 암호화 헬퍼
-    }
-
     // 사용자 정보 입력
     public function insertUserInfo($data)
     {
@@ -132,6 +128,7 @@ class UserModel extends Model
     // 사용자 목록 갖고 오기
     public function getUserList($page, $rows, $search_text)
     {
+        $security_model= new SecurityModel();
         $db = \Config\Database::connect();
 
         $offset = ($page-1)*$rows; // 오프셋 계산
@@ -151,7 +148,7 @@ class UserModel extends Model
         $db_list = $builder->get()->getResultObject(); // 쿼리 실행
         foreach ($db_list as $no => $val) { // 암호화 데이터 복호화
             $user_name = $val->user_name;
-            $user_name_dec = getTextDecrypt($user_name); // 헬퍼를 이용한 암호화 데이터 복호화
+            $user_name_dec = $security_model->getTextDecrypt($user_name); // 헬퍼를 이용한 암호화 데이터 복호화
             $db_list[$no]->user_name = $user_name_dec;
         }
 
@@ -167,6 +164,8 @@ class UserModel extends Model
     // 사용자 정보 갖고 오기
     public function getUserInfo($user_idx)
     {
+        $security_model = new SecurityModel();
+
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
         $db_info = new stdClass();
@@ -192,7 +191,7 @@ class UserModel extends Model
             $db_message = "조회에 오류가 발생했습니다.";
         }
 
-        $db_info->user_name = getTextDecrypt($db_info->user_name);
+        $db_info->user_name = $security_model->getTextDecrypt($db_info->user_name);
 
         $model_result = array();
         $model_result["result"] = $db_result;
