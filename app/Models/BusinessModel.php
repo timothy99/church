@@ -160,7 +160,7 @@ class BusinessModel extends Model
             $business_info->status_code = $status_code;
             $business_info->tax_type_name = $tax_type_name;
             $business_info->tax_type_code = $tax_type_code;
-            $business_info->end_date = $business_number;
+            $business_info->end_date = $end_date;
             $business_info->utcc_yn = $utcc_yn;
             $business_info->tax_type_change_date = $tax_type_change_date;
             $business_info->invoice_apply_date = $invoice_apply_date;

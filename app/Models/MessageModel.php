@@ -2,8 +2,21 @@
 use CodeIgniter\Model;
 class MessageModel extends Model
 {
-    // 이메일 보내기
-    public function sendEmail($from, $from_name, $to, $title, $contents)
+    /**
+     * [Description for sendEmail]
+     * 이메일 보내기
+     *
+     * @param string $from
+     * @param string $from_name
+     * @param string $to
+     * @param string $title
+     * @param string $contents
+     * 
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function sendEmail($from, $from_name, $to, $title, $contents) : void
     {
         $email = \Config\Services::email(); // 이메일 서비스 로드
         $config["protocol"] = "smtp"; // 전송방식
@@ -22,8 +35,18 @@ class MessageModel extends Model
         $email->send(); // 발송
     }
 
-    // 텔레그램 보내기
-    public function sendTelegram($chat_id, $message)
+    /**
+     * [Description for sendTelegram]
+     * 텔레그램 보내기
+     *
+     * @param string $chat_id
+     * @param string $message
+     * 
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function sendTelegram(string $chat_id, string $message) : void
     {
         $bot_host = env("telegram.bot.host");
         $bot_id = env("telegram.bot.id");
