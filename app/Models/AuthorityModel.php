@@ -4,8 +4,15 @@ use CodeIgniter\Model;
 
 class AuthorityModel extends Model
 {
-    // 아이피(ip) 체크
-    public function checkIp()
+    /**
+     * [Description for checkIp]
+     * 아이피(ip) 체크
+     *
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function checkIp() : void
     {
         $is_check_ip = false;
         $ip_address = $_SERVER["REMOTE_ADDR"];
@@ -23,8 +30,15 @@ class AuthorityModel extends Model
         }
     }
 
-    // 로그인없이도 접근이 허용되는 url인지 확인한다
-    public function checkLogin()
+    /**
+     * [Description for checkLogin]
+     * 로그인없이도 접근이 허용되는 url인지 확인한다
+     * 
+     * @return void
+     * 
+     * @author     timothy99 
+     */
+    public function checkLogin() : void
     {
         // 세션을 초기화 합니다.
         $session = \Config\Services::session();
