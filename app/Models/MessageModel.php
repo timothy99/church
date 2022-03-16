@@ -14,7 +14,7 @@ class MessageModel extends Model
      * 
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function sendEmail($from, $from_name, $to, $title, $contents) : void
     {
@@ -44,7 +44,7 @@ class MessageModel extends Model
      * 
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function sendTelegram(string $chat_id, string $message) : void
     {
