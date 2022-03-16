@@ -10,7 +10,7 @@ class Business extends BaseController
      *
      * @return string
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function businessSearch() : string
     {
@@ -44,7 +44,7 @@ class Business extends BaseController
      *
      * @return string
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function businessApiSearch() : string
     {
@@ -59,7 +59,7 @@ class Business extends BaseController
      *
      * @return view
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function businessApiInfo() : void
     {

@@ -15,7 +15,7 @@ class User extends BaseController
      *
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function login() : void
     {
@@ -29,7 +29,7 @@ class User extends BaseController
      *
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function logout() : void
     {
@@ -46,7 +46,7 @@ class User extends BaseController
      *
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function loginProc()
     {
@@ -119,7 +119,7 @@ class User extends BaseController
      *
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function forgot()
     {
@@ -132,7 +132,7 @@ class User extends BaseController
      *
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function register()
     {
@@ -145,7 +145,7 @@ class User extends BaseController
      * 회원가입 처리
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function registerProc()
     {
@@ -228,7 +228,7 @@ class User extends BaseController
      * 회원목록
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function userList()
     {
@@ -263,7 +263,7 @@ class User extends BaseController
      *
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function userInfo()
     {
@@ -287,7 +287,7 @@ class User extends BaseController
      *
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function userEdit()
     {
@@ -310,7 +310,7 @@ class User extends BaseController
      * 회원 정보 수정 처리
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function userEditProc()
     {
@@ -368,7 +368,7 @@ class User extends BaseController
      * 회원삭제
      * @return [type]
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function userDelete()
     {

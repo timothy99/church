@@ -10,7 +10,7 @@ class AuthorityModel extends Model
      *
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function checkIp() : void
     {
@@ -36,7 +36,7 @@ class AuthorityModel extends Model
      * 
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function checkLogin() : void
     {
