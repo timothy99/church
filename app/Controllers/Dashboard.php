@@ -14,7 +14,7 @@ class Dashboard extends BaseController
      *
      * @return void
      * 
-     * @author     timothy99 
+     * @author     timothy99
      */
     public function dashboard() : void
     {
