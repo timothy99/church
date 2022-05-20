@@ -1,8 +1,44 @@
 # Changelog
 
+## [v4.1.9](https://github.com/codeigniter4/CodeIgniter4/tree/v4.1.9) (2022-02-25)
+
+[Full Changelog](https://github.com/codeigniter4/CodeIgniter4/compare/v4.1.8...v4.1.9)
+
+**SECURITY**
+
+* *Remote CLI Command Execution Vulnerability* was fixed. See the [Security advisory](https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-xjp4-6w75-qrj7) for more information.
+* *Cross-Site Request Forgery (CSRF) Protection Bypass Vulnerability* was fixed. See the [Security advisory](https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-4v37-24gm-h554) for more information.
+
+## [v4.1.8](https://github.com/codeigniter4/CodeIgniter4/tree/v4.1.8) (2022-01-24)
+
+[Full Changelog](https://github.com/codeigniter4/CodeIgniter4/compare/v4.1.7...v4.1.8)
+
+**SECURITY**
+
+* *XSS Vulnerability* in the `API\ResponseTrait` was fixed. See the [Security advisory](https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-7528-7jg5-6g62) for more information.
+
+## [v4.1.7](https://github.com/codeigniter4/CodeIgniter4/tree/v4.1.7) (2022-01-09)
+
+[Full Changelog](https://github.com/codeigniter4/CodeIgniter4/compare/v4.1.6...v4.1.7)
+
+**Breaking Changes**
+
+* fix: replace deprecated FILTER_SANITIZE_STRING by @kenjis in https://github.com/codeigniter4/CodeIgniter4/pull/5555
+
+**Fixed Bugs**
+
+* fix: BaseConnection::getConnectDuration() number_format(): Passing null to parameter by @kenjis in https://github.com/codeigniter4/CodeIgniter4/pull/5536
+* Fix: Debug toolbar selectors by @iRedds in https://github.com/codeigniter4/CodeIgniter4/pull/5544
+* Fix: Toolbar. ciDebugBar.showTab() context. by @iRedds in https://github.com/codeigniter4/CodeIgniter4/pull/5554
+* Refactor Database Collector display by @paulbalandan in https://github.com/codeigniter4/CodeIgniter4/pull/5553
+
 ## [v4.1.6](https://github.com/codeigniter4/CodeIgniter4/tree/v4.1.6) (2022-01-03)
 
 [Full Changelog](https://github.com/codeigniter4/CodeIgniter4/compare/v4.1.5...v4.1.6)
+
+**SECURITY**
+
+* *Deserialization of Untrusted Data* found in the ``old()`` function was fixed. See the [Security advisory](https://github.com/codeigniter4/CodeIgniter4/security/advisories/GHSA-w6jr-wj64-mc9x) for more information.
 
 **Breaking Changes**
 
