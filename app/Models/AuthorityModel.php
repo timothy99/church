@@ -47,20 +47,16 @@ class AuthorityModel extends Model
         $user_session = $session->get("user_session");
         $is_login = isset($user_session["user_id"]);
 
-        $current_uri = current_url(true);
-        $segments = $current_uri->getSegments();
-        $segment0 = isset($segments[0]) == false ? "dashboard" : $segments[0];
-        $segment1 = isset($segments[1]) == false  ? "dashboard" : $segments[1];
-        $segment_uri = "/".$segment0."/".$segment1;
+        $current_uri = uri_string();
 
         // 로그인하지 않아도 되는 url
         $allow_uri = array();
-        $allow_uri[] = "/user/login";
-        $allow_uri[] = "/user/loginProc";
-        $allow_uri[] = "/user/register";
-        $allow_uri[] = "/user/registerProc";
+        $allow_uri[] = "user/login";
+        $allow_uri[] = "user/loginProc";
+        $allow_uri[] = "user/register";
+        $allow_uri[] = "user/registerProc";
 
-        if (in_array($segment_uri, $allow_uri)) { // 로그인 없어도 허용되는 url은
+        if (in_array($current_uri, $allow_uri)) { // 로그인 없어도 허용되는 url은
             // 아무것도 하지 않음
         } elseif ($is_login == true) { // 로그인이 필요한 url이고 로그인한 경우
             // 아무것도 하지 않음
