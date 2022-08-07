@@ -38,7 +38,7 @@ class Filters extends BaseConfig
             // 'invalidchars',
         ],
         'after' => [
-            // 'toolbar',
+            'toolbar', // json 리턴등 테스트 수정시 문제가 생길경우 이걸 주석 처리 하세요
             // 'honeypot',
             // 'secureheaders',
         ],
