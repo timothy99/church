@@ -30,7 +30,7 @@ function logMessage($data)
     print_r($header_string." ---> ");
     print_r($data);
     $data_log = ob_get_clean();
-    log_message("debug", $data_log);
+    log_message("error", $data_log);
 
     return true;
 }
@@ -43,7 +43,7 @@ function logMessageDump($data)
     print_r($header_string." ---> ");
     var_dump($data);
     $data_log = ob_get_clean();
-    log_message("debug", $data_log);
+    log_message("error", $data_log);
 
     return true;
 }
@@ -56,8 +56,8 @@ function logQuery($data)
     print_r($header_string." ---> ");
     print_r($data);
     $data_log = ob_get_clean();
-    $data_log = str_replace("`","",str_replace("\n"," ",$data_log));
-    log_message("debug", $data_log);
+    $data_log = str_replace("\n"," ",$data_log);
+    log_message("error", $data_log);
 
     return true;
 }
@@ -68,6 +68,34 @@ function logLastQuery()
     $db = Database::connect();
     $last_query = $db->getLastQuery()->getQuery();
     logQuery($last_query);
+
+    return true;
+}
+
+// 쿼리 모니터링용 - insert, update, delete 만 기본적으로 로그에 남긴다.
+function logModifyQuery()
+{
+    $db = Database::connect();
+    $last_query = $db->getLastQuery()->getQuery();
+    $last_query_lower = strtolower($last_query);
+
+    $log_yn = false;
+    $insert_position = stripos($last_query_lower, "nsert");
+    $update_position = stripos($last_query_lower, "pdate");
+    $delete_position = stripos($last_query_lower, "elete");
+    $session_position = stripos($last_query_lower, "nit_session");
+
+    if ($insert_position > 0 || $update_position > 0 || $delete_position > 0) {
+        $log_yn = true;
+    }
+
+    if ($session_position > 0) {
+        $log_yn = false;
+    }
+
+    if ($log_yn == true) {
+        logQuery($last_query);
+    }
 
     return true;
 }

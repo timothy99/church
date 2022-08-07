@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\UserModel;
 use App\Models\MessageModel;
-use App\Models\PagingModel;
 use App\Models\SecurityModel;
 
 class User extends BaseController
@@ -17,7 +16,7 @@ class User extends BaseController
      * 
      * @author     timothy99
      */
-    public function login() : void
+    public function login()
     {
         $view = view("user/login");
         echo $view;
@@ -31,7 +30,7 @@ class User extends BaseController
      * 
      * @author     timothy99
      */
-    public function logout() : void
+    public function logout()
     {
         $session = \Config\Services::session();
         $session->destroy(); // 세션 삭제
@@ -48,7 +47,7 @@ class User extends BaseController
      * 
      * @author     timothy99
      */
-    public function loginProc()
+    public function signin()
     {
         $user_model = new UserModel();
         $security_model = new SecurityModel();
@@ -97,13 +96,8 @@ class User extends BaseController
         }
 
         if ($result == true) {
-            // 세션에 입력할 데이터
-            $user_session = array();
-            $user_session["user_idx"] = $user_login_info->user_idx;
-            $user_session["user_id"] = $user_login_info->user_id;
-
-            // 세션에 아이디와 idx입력
-            $session->set("user_session", $user_session);
+            // 세션에 데이터 입력
+            $session->set("user_session", $user_login_info);
         }
 
         $proc_result = array();
@@ -147,7 +141,7 @@ class User extends BaseController
      * 
      * @author     timothy99
      */
-    public function registerProc()
+    public function signup()
     {
         $user_model = new UserModel();
         $message_model = new MessageModel();
@@ -185,10 +179,12 @@ class User extends BaseController
             $message = "약관에 동의해 주세요.";
         }
 
-        // 아이디 중복체크
-        $model_result = $user_model->getUserIdCheck($user_id);
-        $result = $model_result["result"];
-        $message = $model_result["message"];
+        if($result == true) { 
+            // 아이디 중복체크
+            $model_result = $user_model->getUserIdCheck($user_id);
+            $result = $model_result["result"];
+            $message = $model_result["message"];
+        }
 
         if ($result == true) {
             // 데이터 암호화
@@ -202,203 +198,27 @@ class User extends BaseController
 
             $model_result = $user_model->insertUserInfo($data);
             $result = $model_result["result"];
-            if ($result == false) {
-                $message = $model_result["message"];
-            }
-        }
-
-        // 회원가입이 완료된 경우 이메일을 발송합니다.
-        if ($result == true) {
-            $from = env("email.smtp.user");
-            $from_name = env("email.smtp.name");
-            $title = "가입을 환영합니다";
-            $contents = "가입을 환영합니다\n우리의 소중한 사람이 되어주셔서 고맙습니다";
-            $message_model->sendEmail($from, $from_name, $user_id, $title, $contents);
-        }
-
-        $proc_result = array();
-        $proc_result["result"] = $result;
-        $proc_result["message"] = $message;
-
-        echo json_encode($proc_result);
-    }
-
-    /**
-     * [Description for userList]
-     * 회원목록
-     * @return [type]
-     * 
-     * @author     timothy99
-     */
-    public function userList()
-    {
-        $user_model = new UserModel();
-        $paging_model = new PagingModel();
-
-        $rows = 10;
-        $page = $this->request->getGet("p") ?? 1;
-        $search_text = $this->request->getGet("q", FILTER_SANITIZE_SPECIAL_CHARS);
-        $model_result = $user_model->getUserList($page, $rows, $search_text);
-
-        $cnt = $model_result["db_cnt"]; // 데이터 총합
-        $paging = $paging_model->getPaging($page, $rows, $cnt);
-
-        $proc_result = array();
-        $proc_result["result"] = $model_result["result"];
-        $proc_result["message"] = $model_result["message"];
-        $proc_result["user_list"] = $model_result["db_list"];
-        $proc_result["cnt"] = $cnt;
-        $proc_result["paging"] = $paging;
-        $proc_result["start_row"] = ($page-1)*$rows+1;
-        $proc_result["p"] = $page;
-        $proc_result["q"] = $search_text;
-
-        $view = view("user/userList", $proc_result);
-        echo $view;
-    }
-
-    /**
-     * [Description for userInfo]
-     * 회원보기
-     *
-     * @return [type]
-     * 
-     * @author     timothy99
-     */
-    public function userInfo()
-    {
-        $user_model = new UserModel();
-
-        $user_idx = $this->request->uri->getSegment(3);
-        $model_result = $user_model->getUserInfo($user_idx);
-
-        $proc_result = array();
-        $proc_result["result"] = $model_result["result"];
-        $proc_result["message"] = $model_result["message"];
-        $proc_result["user_info"] = $model_result["db_info"];
-
-        $view = view("user/userInfo", $proc_result);
-        echo $view;
-    }
-
-    /**
-     * [Description for userEdit]
-     * 회원 정보 수정
-     *
-     * @return [type]
-     * 
-     * @author     timothy99
-     */
-    public function userEdit()
-    {
-        $user_model = new UserModel();
-
-        $user_idx = $this->request->uri->getSegment(3);
-        $model_result = $user_model->getUserInfo($user_idx);
-
-        $proc_result = array();
-        $proc_result["result"] = $model_result["result"];
-        $proc_result["message"] = $model_result["message"];
-        $proc_result["user_info"] = $model_result["db_info"];
-
-        $view = view("user/userEdit", $proc_result);
-        echo $view;
-    }
-
-    /**
-     * [Description for userEditProc]
-     * 회원 정보 수정 처리
-     * @return [type]
-     * 
-     * @author     timothy99
-     */
-    public function userEditProc()
-    {
-        $user_model = new UserModel();
-        $security_model= new SecurityModel();
-
-        $result = true;
-        $message = "회원수정이 완료되었습니다.";
-
-        $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
-        $user_name = $this->request->getPost("user_name", FILTER_SANITIZE_SPECIAL_CHARS);
-        $admin_yn = $this->request->getPost("admin_yn", FILTER_SANITIZE_SPECIAL_CHARS);
-        $use_yn = $this->request->getPost("use_yn", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $session = \Config\Services::session();
-
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $upd_id = $user_session["user_id"];
-
-        $user_name = trim($user_name);
-
-        if ($user_name == null) {
-            $result = false;
-            $message = "이름을 입력해주세요.";
-        }
-
-        if ($result == true) {
-            // 데이터 암호화
-            $user_name_enc = $security_model->getTextEncrypt($user_name); // 이름 암호화
-
-            $data = array();
-            $data["user_idx"] = $user_idx;
-            $data["user_name"] = $user_name_enc;
-            $data["admin_yn"] = $admin_yn;
-            $data["use_yn"] = $use_yn;
-            $data["upd_id"] = $upd_id;
-
-            $model_result = $user_model->updateUserInfo($data);
-            $result = $model_result["result"];
-            if ($result == false) {
-                $message = $model_result["message"];
-            }
-        }
-
-        $proc_result = array();
-        $proc_result["result"] = $result;
-        $proc_result["message"] = $message;
-
-        echo json_encode($proc_result);
-    }
-
-    /**
-     * [Description for userDelete]
-     * 회원삭제
-     * @return [type]
-     * 
-     * @author     timothy99
-     */
-    public function userDelete()
-    {
-        $user_model = new UserModel();
-
-        $result = true;
-        $message = "회원삭제가 완료되었습니다.";
-
-        $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $session = \Config\Services::session();
-
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $upd_id = $user_session["user_id"];
-
-        $data = array();
-        $data["user_idx"] = $user_idx;
-        $data["upd_id"] = $upd_id;
-
-        $model_result = $user_model->deleteUserInfo($data);
-        $result = $model_result["result"];
-        if ($result == false) {
             $message = $model_result["message"];
         }
 
+        // // 회원가입이 완료된 경우 이메일을 발송합니다.
+        // if ($result == true) {
+        //     $from = env("email.smtp.user");
+        //     $from_name = env("email.smtp.name");
+        //     $title = "가입을 환영합니다";
+        //     $contents = "가입을 환영합니다\n우리의 소중한 사람이 되어주셔서 고맙습니다";
+        //     $message_model->sendEmail($from, $from_name, $user_id, $title, $contents);
+        // }
+
+        if($result == true) {
+            $message = "회원가입을 축하합니다";
+        }
+
         $proc_result = array();
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
 
         echo json_encode($proc_result);
     }
+
 }

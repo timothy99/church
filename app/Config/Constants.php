@@ -38,9 +38,9 @@ defined('MINUTE') || define('MINUTE', 60);
 defined('HOUR')   || define('HOUR', 3600);
 defined('DAY')    || define('DAY', 86400);
 defined('WEEK')   || define('WEEK', 604800);
-defined('MONTH')  || define('MONTH', 2592000);
-defined('YEAR')   || define('YEAR', 31536000);
-defined('DECADE') || define('DECADE', 315360000);
+defined('MONTH')  || define('MONTH', 2_592_000);
+defined('YEAR')   || define('YEAR', 31_536_000);
+defined('DECADE') || define('DECADE', 315_360_000);
 
 /*
  | --------------------------------------------------------------------------
@@ -78,9 +78,25 @@ defined('EXIT_DATABASE')       || define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      || define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      || define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
-/*
- | 시스템에서 사용하는 공통상수
-*/
+/**
+ * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_LOW instead.
+ */
+define('EVENT_PRIORITY_LOW', 200);
+
+/**
+ * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_NORMAL instead.
+ */
+define('EVENT_PRIORITY_NORMAL', 100);
+
+/**
+ * @deprecated Use \CodeIgniter\Events\Events::PRIORITY_HIGH instead.
+ */
+define('EVENT_PRIORITY_HIGH', 10);
+
+/**
+ * 시스템에서 사용하는 공통상수
+ */
 defined("CSS_VER") || define("CSS_VER", "0.0.1"); // CSS버전
 defined("JS_VER") || define("JS_VER", "0.0.1"); // JS버전
 defined("PROGRAM_VER") || define("PROGRAM_VER", "0.0.1"); // 메뉴 하단의 프로그램 버전 릴리즈 될때마다 변경하자
+defined("SITE_NAME") || define("SITE_NAME", "그룹웨어"); // 사이트 명칭

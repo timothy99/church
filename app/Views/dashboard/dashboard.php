@@ -1,5 +1,9 @@
 <?php   include_once APPPATH."Views/include/header.php"; // 헤더 ?>
-<?php   include_once APPPATH."Views/include/navigation.php"; // 네비게이션(상단, 좌측 메뉴) ?>
+
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+<?php   include_once APPPATH."Views/include/menu.php"; // 네비게이션(상단, 좌측 메뉴) ?>
 
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
@@ -28,3 +32,11 @@
     </div><!-- /.content-wrapper -->
 
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
+
+<script>
+    $(window).on("load", function() {
+        $("#upper-dashboard-dashboard").addClass("menu-open");
+        $("#a-dashboard-dashboard").addClass("active");
+        $("#bottom-dashboard-dashboard").addClass("active");
+    });
+</script>

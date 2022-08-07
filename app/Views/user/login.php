@@ -6,14 +6,14 @@
     <title>로그인</title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"><!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet" href="../assets/plugin/fontawesome-free/css/all.min.css?version=<?=CSS_VER ?>"><!-- Font Awesome -->
-    <link rel="stylesheet" href="../assets/plugin/icheck-bootstrap/icheck-bootstrap.min.css?version=<?=CSS_VER ?>"><!-- icheck bootstrap -->
-    <link rel="stylesheet" href="../assets/css/adminlte.min.css?version=<?=CSS_VER ?>"><!-- Theme style -->
+    <link rel="stylesheet" href="/assets/plugin/fontawesome-free/css/all.min.css?version=<?=CSS_VER ?>"><!-- Font Awesome -->
+    <link rel="stylesheet" href="/assets/plugin/icheck-bootstrap/icheck-bootstrap.min.css?version=<?=CSS_VER ?>"><!-- icheck bootstrap -->
+    <link rel="stylesheet" href="/assets/plugin/adminlte3/css/adminlte.css?ver=<?=CSS_VER ?>"><!-- Theme style -->
 </head>
 <body class="hold-transition login-page">
 <div class="login-box">
     <div class="login-logo">
-        <a href="/"><b>관리자</b></a>
+        <a href="/"><b><?=SITE_NAME ?></b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
@@ -66,9 +66,9 @@
 </div>
 <!-- /.login-box -->
 
-<script src="../assets/plugin/jquery/jquery.min.js?version=<?=JS_VER ?>"></script><!-- jQuery -->
-<script src="../assets/plugin/bootstrap/js/bootstrap.bundle.min.js?version=<?=JS_VER ?>"></script><!-- Bootstrap 4 -->
-<script src="../assets/js/adminlte.min.js?version=<?=JS_VER ?>"></script><!-- AdminLTE App -->
+<script src="/assets/plugin/jquery/jquery.min.js?version=<?=JS_VER ?>"></script><!-- jQuery -->
+<script src="/assets/plugin/bootstrap/js/bootstrap.bundle.min.js?version=<?=JS_VER ?>"></script><!-- Bootstrap 4 -->
+<script src="/assets/plugin/adminlte3/js/adminlte.js?ver=<?=JS_VER ?>"></script><!-- AdminLTE App -->
 </body>
 </html>
 
@@ -77,7 +77,7 @@
     $(function() {
         $("#login").click(function() {
             $.ajax({
-                url: "/user/loginProc",
+                url: "/user/signin",
                 type: "POST",
                 dataType: "json",
                 async: true,
