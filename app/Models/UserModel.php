@@ -22,7 +22,7 @@ class UserModel extends Model
 
             $db->transStart();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->set("user_id", $user_id);
             $builder->set("user_name", $user_name);
             $builder->set("user_password", $user_password);
@@ -65,7 +65,7 @@ class UserModel extends Model
         try {
             $db = \Config\Database::connect();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->select("user_idx");
             $builder->select("user_id");
             $builder->select("admin_yn");
@@ -98,7 +98,7 @@ class UserModel extends Model
         try {
             $db = \Config\Database::connect();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->select("count(*) as cnt");
             $builder->where("user_id", $user_id);
             $builder->where("use_yn", "Y");

@@ -83,7 +83,7 @@ function logModifyQuery()
     $insert_position = stripos($last_query_lower, "nsert");
     $update_position = stripos($last_query_lower, "pdate");
     $delete_position = stripos($last_query_lower, "elete");
-    $session_position = stripos($last_query_lower, "nit_session");
+    $session_position = stripos($last_query_lower, "gwt_session");
 
     if ($insert_position > 0 || $update_position > 0 || $delete_position > 0) {
         $log_yn = true;

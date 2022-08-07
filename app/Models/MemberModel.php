@@ -18,7 +18,7 @@ class MemberModel extends Model
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
 
-        $builder = $db->table("nit_user");
+        $builder = $db->table("gwt_user");
 
         if ($search_text != null) {
             $builder->like("user_id", $search_text);
@@ -57,7 +57,7 @@ class MemberModel extends Model
         try {
             $db = \Config\Database::connect();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->select("user_idx");
             $builder->select("user_id");
             $builder->select("user_name");
@@ -101,7 +101,7 @@ class MemberModel extends Model
 
             $db->transStart();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->set("user_name", $user_name);
             $builder->set("admin_yn", $admin_yn);
             $builder->set("use_yn", $use_yn);
@@ -142,7 +142,7 @@ class MemberModel extends Model
 
             $db->transStart();
 
-            $builder = $db->table("nit_user");
+            $builder = $db->table("gwt_user");
             $builder->set("admin_yn", "N");
             $builder->set("use_yn", "N");
             $builder->set("del_yn", "Y");

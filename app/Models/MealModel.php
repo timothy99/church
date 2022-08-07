@@ -12,13 +12,12 @@ class MealModel extends Model
         $start_date = $meal_data["start_date"];
         $end_date = $meal_data["end_date"];
 
-        // select * from nit_meal a where a.meal_date between '2022-06-26' and '2022-08-06';
         $db = $this->db;
 
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
 
-        $builder = $db->table("nit_meal");
+        $builder = $db->table("gwt_meal");
         $builder->select("meal_menu as title");
         $builder->select("meal_date as start");
         $builder->select("meal_date as id");
@@ -41,7 +40,7 @@ class MealModel extends Model
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
 
-        $builder = $db->table("nit_meal");
+        $builder = $db->table("gwt_meal");
         $builder->select("*");
         $builder->where("meal_date", $meal_date);
         $builder->where("del_yn", "N");
@@ -71,7 +70,7 @@ class MealModel extends Model
             $db = $this->db;
             $db->transStart();
 
-            $builder = $db->table("nit_meal");
+            $builder = $db->table("gwt_meal");
             $builder->set("meal_date", $meal_date);
             $builder->set("meal_menu", $meal_menu);
             $builder->set("del_yn", "N");
@@ -113,7 +112,7 @@ class MealModel extends Model
             $db = $this->db;
             $db->transStart();
 
-            $builder = $db->table("nit_meal");
+            $builder = $db->table("gwt_meal");
             $builder->set("meal_date", $meal_date);
             $builder->set("meal_menu", $meal_menu);
             $builder->set("del_yn", "N");
@@ -151,7 +150,7 @@ class MealModel extends Model
             $db = $this->db;
             $db->transStart();
 
-            $builder = $db->table("nit_meal");
+            $builder = $db->table("gwt_meal");
             $builder->set("del_yn", "Y");
             $builder->set("upd_id", $upd_id);
             $builder->set("upd_date", $today);
