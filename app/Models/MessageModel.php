@@ -2,20 +2,7 @@
 use CodeIgniter\Model;
 class MessageModel extends Model
 {
-    /**
-     * [Description for sendEmail]
-     * 이메일 보내기
-     *
-     * @param string $from
-     * @param string $from_name
-     * @param string $to
-     * @param string $title
-     * @param string $contents
-     * 
-     * @return void
-     * 
-     * @author     timothy99
-     */
+    // 이메일 발송기능, 구글 정책 변경으로 인하여 수정 개발 필요
     public function sendEmail($from, $from_name, $to, $title, $contents) : void
     {
         $email = \Config\Services::email(); // 이메일 서비스 로드
@@ -35,17 +22,7 @@ class MessageModel extends Model
         $email->send(); // 발송
     }
 
-    /**
-     * [Description for sendTelegram]
-     * 텔레그램 보내기
-     *
-     * @param string $chat_id
-     * @param string $message
-     * 
-     * @return void
-     * 
-     * @author     timothy99
-     */
+    // 텔레그램으로데이터 보내기
     public function sendTelegram(string $chat_id, string $message) : void
     {
         $bot_host = env("telegram.bot.host");
@@ -65,6 +42,33 @@ class MessageModel extends Model
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_exec($ch);
         curl_close($ch);
+    }
+
+    // 네이트온 팀룸으로 데이터 보내기
+    public function sendTeamRoom($message)
+    {
+        $teamroom_host = env("nateon.teamroot.webhook.api.url");
+
+        $payload = array();
+        $payload["content"] = $message;
+        $payload = http_build_query($payload, "", "&");
+
+        $ch = curl_init(); // curl 초기화
+        $headers = array(); //헤더정보
+        array_push($headers, "cache-control: no-cache");
+        array_push($headers, "application/x-www-form-urlencoded");
+
+        curl_setopt($ch,CURLOPT_URL, $teamroom_host);
+        curl_setopt($ch,CURLOPT_POST, true);
+        curl_setopt($ch,CURLOPT_POSTFIELDS, $payload);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
+        curl_setopt($ch,CURLOPT_TIMEOUT, 20);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+        $result = curl_exec($ch);
+        logMessage("네이트온 팀룸 웹훅 결과 : ".$result);
+
+        return $result;
     }
 
 }

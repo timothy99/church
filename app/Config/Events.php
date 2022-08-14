@@ -33,9 +33,7 @@ Events::on('pre_system', static function () {
             ob_end_flush();
         }
 
-        ob_start(static function ($buffer) {
-            return $buffer;
-        });
+        ob_start(static fn ($buffer) => $buffer);
     }
 
     /*
@@ -57,6 +55,12 @@ Events::on('pre_system', static function () {
 Events::on("post_controller_constructor", function () {
     $authority_model = new AuthorityModel();
 
-    $authority_model->checkIp(); // 접근 가능한 IP인지 확인
+    $authority_model->checkBatch(); // 배치 작업에 접근 가능한 IP인지 확인
+    // $authority_model->checkIp(); // 접근 가능한 IP인지 확인
     $authority_model->checkLogin(); // 로그인이 필요한 url인지 확인
+});
+
+// CI에서 기본적 DB이벤트(select등 모두 포함)가 발생되었을때의 로깅
+Events::on("DBQuery", function () {
+    logModifyQuery(); // insert, update, delete 만 로깅하도록 함수 생성
 });
