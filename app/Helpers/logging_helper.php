@@ -72,7 +72,10 @@ function logLastQuery()
     return true;
 }
 
-// 쿼리 모니터링용 - insert, update, delete 만 기본적으로 로그에 남긴다.
+/**
+ * 쿼리 모니터링용 - insert, update, delete 만 기본적으로 로그에 남긴다.
+ * Evnets.php 에 쿼리가 실행될때마다 이 함수가 실행
+ */
 function logModifyQuery()
 {
     $db = Database::connect();
