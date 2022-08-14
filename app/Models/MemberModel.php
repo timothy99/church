@@ -113,7 +113,6 @@ class MemberModel extends Model
 
             $db->transComplete();
             $affected_rows = $db->affectedRows();
-            logLastQuery(); // 현재 쿼리 로그 남기기
         } catch (Throwable $t) {
             $db_result = false;
             $db_message = "입력에 오류가 발생했습니다.";
@@ -153,7 +152,6 @@ class MemberModel extends Model
 
             $db->transComplete();
             $affected_rows = $db->affectedRows();
-            logLastQuery(); // 현재 쿼리 로그 남기기
         } catch (Throwable $t) {
             $db_result = false;
             $db_message = "입력에 오류가 발생했습니다.";
