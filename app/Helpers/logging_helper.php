@@ -83,17 +83,17 @@ function logModifyQuery()
     $insert_position = stripos($last_query_lower, "nsert");
     $update_position = stripos($last_query_lower, "pdate");
     $delete_position = stripos($last_query_lower, "elete");
-    $session_position = stripos($last_query_lower, "gwt_session");
+    $session_position = stripos($last_query_lower, "gwt_session"); // 세션쿼리인 경우
 
     if ($insert_position > 0 || $update_position > 0 || $delete_position > 0) {
         $log_yn = true;
     }
 
-    if ($session_position > 0) {
+    if ($session_position > 0) { // 세션관련 쿼리는 저장하지 않는다.
         $log_yn = false;
     }
 
-    if ($log_yn == true) {
+    if ($log_yn == true) { // 최종적으로 로그를 남겨야 할경우 로그를 남긴다.
         logQuery($last_query);
     }
 
