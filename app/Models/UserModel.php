@@ -37,7 +37,6 @@ class UserModel extends Model
             $insert_id = $db->insertID();
 
             $db->transComplete();
-            logLastQuery(); // 현재 쿼리 로그 남기기
         } catch (Throwable $t) {
             $result = false;
             $message = "입력에 오류가 발생했습니다.";
