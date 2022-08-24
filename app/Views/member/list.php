@@ -90,6 +90,13 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
+    $(window).on("load", function() {
+        $("#upper-member-list").addClass("menu-open");
+        $("#a-member-list").addClass("active");
+        $("#bottom-member-list").addClass("active");
+    });
+
     $(function() {
         $("#q").keydown(function(e) {
             if(e.keyCode == 13) {
@@ -107,10 +114,4 @@
         var q = $("#q").val();
         location.href = "/member/list?p=1&q="+q;
     }
-
-    $(window).on("load", function() {
-        $("#upper-member-list").addClass("menu-open");
-        $("#a-member-list").addClass("active");
-        $("#bottom-member-list").addClass("active");
-    });
 </script>

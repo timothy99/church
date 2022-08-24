@@ -73,6 +73,13 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
+    $(window).on("load", function() {
+        $("#upper-member-list").addClass("menu-open");
+        $("#a-member-list").addClass("active");
+        $("#bottom-member-list").addClass("active");
+    });
+
     $(function() {
         $("#user_edit").click(function(e) {
             var user_idx = $("#user_idx").val();
@@ -100,9 +107,4 @@
         });
     });
 
-    $(window).on("load", function() {
-        $("#upper-member-list").addClass("menu-open");
-        $("#a-member-list").addClass("active");
-        $("#bottom-member-list").addClass("active");
-    });
 </script>

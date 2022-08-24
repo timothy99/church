@@ -63,6 +63,13 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
+    $(window).on("load", function() {
+        $("#upper-business-search").addClass("menu-open");
+        $("#a-business-search").addClass("active");
+        $("#bottom-business-search").addClass("active");
+    });
+
     $(function() {
         $("#q").keydown(function(e) {
             if(e.keyCode == 13) {
@@ -95,10 +102,4 @@
             }
         });
     }
-
-    $(window).on("load", function() {
-        $("#upper-business-search").addClass("menu-open");
-        $("#a-business-search").addClass("active");
-        $("#bottom-business-search").addClass("active");
-    });
 </script>
