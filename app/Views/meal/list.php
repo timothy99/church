@@ -40,35 +40,28 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
     $(window).on("load", function() {
         $("#upper-meal-list").addClass("menu-open");
         $("#a-meal-list").addClass("active");
         $("#bottom-meal-list").addClass("active");
     });
 
+    // 달력생성
     $(function () {
-
-        /* initialize the external events
-        -----------------------------------------------------------------*/
-
-        /* initialize the calendar
-        -----------------------------------------------------------------*/
-        //Date for the calendar events (dummy data)
         var date = new Date()
         var d = date.getDate();
         var m = date.getMonth();
         var y = date.getFullYear()
 
         var Calendar = FullCalendar.Calendar;
-        var calendarEl = document.getElementById("calendar");
-
-        var calendar = new Calendar(calendarEl, {
-            dateClick: function(info) { // 날짜 클릭시 정보
+        var calendar_elemenet = document.getElementById("calendar");
+        var calendar_render = new Calendar(calendar_elemenet, {
+            dateClick: function(info) { // 날짜 클릭시 액션
                 location.href = "/meal/view/"+info.dateStr;
             },
-            eventClick: function(info) { // 날짜 클릭시 정보
+            eventClick: function(info) { // 이벤트 클릭시 액션
                 location.href = "/meal/view/"+info.event.id;
-
             },
             headerToolbar: {
                 left: "",
@@ -77,14 +70,12 @@
             },
             themeSystem: "bootstrap",
             locale: "ko",
-            //Random default events
             events: {
                 url: "/meal/month",
                 method: "POST"
             }
         });
-
-        calendar.render();
+        calendar_render.render();
     });
 
 </script>

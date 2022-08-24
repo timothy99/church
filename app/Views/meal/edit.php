@@ -70,6 +70,13 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
+    $(window).on("load", function() {
+        $("#upper-meal-list").addClass("menu-open");
+        $("#a-meal-list").addClass("active");
+        $("#bottom-meal-list").addClass("active");
+    });
+
     $(function() {
         $("#meal_save").click(function(e) {
             $.ajax({
@@ -91,12 +98,6 @@
         $("#meal_cancel").click(function(e) {
             history.go(-1);
         });
-    });
-
-    $(window).on("load", function() {
-        $("#upper-meal-list").addClass("menu-open");
-        $("#a-meal-list").addClass("active");
-        $("#bottom-meal-list").addClass("active");
     });
 
     //Date picker
