@@ -71,6 +71,13 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
+    $(window).on("load", function() {
+        $("#upper-meal-list").addClass("menu-open");
+        $("#a-meal-list").addClass("active");
+        $("#bottom-meal-list").addClass("active");
+    });
+
     $(function() {
         $("#edit").click(function(e) {
             var meal_date = $("#meal_date").val();
@@ -96,11 +103,5 @@
                 });
             }
         });
-    });
-
-    $(window).on("load", function() {
-        $("#upper-meal-list").addClass("menu-open");
-        $("#a-meal-list").addClass("active");
-        $("#bottom-meal-list").addClass("active");
     });
 </script>

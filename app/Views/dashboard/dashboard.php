@@ -34,6 +34,7 @@
 <?php   include_once APPPATH."Views/include/footer.php"; // 하단 ?>
 
 <script>
+    // 좌측 메뉴 강조하는 함수
     $(window).on("load", function() {
         $("#upper-dashboard-dashboard").addClass("menu-open");
         $("#a-dashboard-dashboard").addClass("active");
