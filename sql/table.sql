@@ -34,3 +34,20 @@ create table gwt_user (
     primary key (user_idx),
     unique key user_id (user_id)
 ) engine=InnoDB auto_increment=1 default charset=utf8 comment='사용자 정보';
+
+create table gwt_file (
+    file_idx int not null auto_increment comment '연번',
+    file_name_org varchar(1000) not null comment '원본 파일명',
+    file_name_stored varchar(1000) not null comment '저장된 파일명',
+    file_name_uploaded varchar(1000) not null comment '저장된 파일 전체 경로',
+    file_size int not null comment '파일 크기',
+    mime_type varchar(100) not null comment '파일 mime type',
+    category varchar(100) not null comment '사용자가 지정한 파일 형식',
+    del_yn enum('Y', 'N') not null comment '삭제 여부',
+    ins_id varchar(200) not null comment '등록자',
+    ins_date datetime not null comment '등록일',
+    upd_id varchar(200) not null comment '수정자',
+    upd_date datetime not null comment '수정일',
+    primary key (file_idx),
+    key file_name_org (file_name_org)
+) engine=InnoDB auto_increment=1 default charset=utf8 comment='사용자 정보';

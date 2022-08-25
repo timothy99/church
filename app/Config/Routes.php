@@ -55,6 +55,7 @@ $routes->post("/meal/update", "Meal::update"); // 구내식당 데이터 저장
 $routes->post("/meal/month", "Meal::month"); // 구내식당 월별 데이터
 $routes->post("/meal/delete", "Meal::Delete"); // 식단 데이터 삭제
 $routes->get("/batch/meal", "Batch::meal"); // 식단 배치
+$routes->post("/upload/profile", "Upload::profile"); // 프로필 이미지 업로드
 
 /*
  * --------------------------------------------------------------------

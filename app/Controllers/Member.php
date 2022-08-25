@@ -82,14 +82,16 @@ class Member extends BaseController
 
         $user_idx = $this->request->uri->getSegment(3);
         $model_result = $member_model->getMemberInfo($user_idx);
+        $member_info = $model_result["db_info"];
+        $member_info->profile_image_base64_html = $member_model->getMemberProfileImageInfo();
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
         $proc_result["message"] = $model_result["message"];
-        $proc_result["member_info"] = $model_result["db_info"];
+        $proc_result["member_info"] = $member_info;
 
         $view = view("member/edit", $proc_result);
-        echo $view;
+        return $view;
     }
 
 
@@ -112,15 +114,14 @@ class Member extends BaseController
         $user_name = $this->request->getPost("user_name", FILTER_SANITIZE_SPECIAL_CHARS);
         $admin_yn = $this->request->getPost("admin_yn", FILTER_SANITIZE_SPECIAL_CHARS);
         $use_yn = $this->request->getPost("use_yn", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $session = $this->session;
+        $profile_image = $this->request->getPost("profile_image", FILTER_SANITIZE_SPECIAL_CHARS);
 
         // 세션의 정보중 아이디를 갖고 옵니다.
+        $session = \Config\Services::session();
         $user_session = $session->get("user_session");
         $upd_id = $user_session->user_id;
 
         $user_name = trim($user_name);
-
         if ($user_name == null) {
             $result = false;
             $message = "이름을 입력해주세요.";
@@ -134,6 +135,7 @@ class Member extends BaseController
             $data["user_idx"] = $user_idx;
             $data["user_name"] = $user_name_enc;
             $data["admin_yn"] = $admin_yn;
+            $data["profile_image"] = $profile_image;
             $data["use_yn"] = $use_yn;
             $data["upd_id"] = $upd_id;
 
