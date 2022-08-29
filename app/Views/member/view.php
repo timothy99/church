@@ -63,6 +63,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                                 <div class="float-right">
+                                    <button class="btn btn-warning" id="user_list" name="user_list">목록</button>
                                     <button class="btn btn-info" id="user_edit" name="user_edit">수정</button>
                                     <button class="btn btn-danger" id="user_delete" name="user_delete">삭제</button>
                                 </div>
@@ -88,6 +89,10 @@
         $("#user_edit").click(function(e) {
             var user_idx = $("#user_idx").val();
             location.href = "/member/edit/"+user_idx;
+        });
+
+        $("#user_list").click(function(e) {
+            location.href = "/member/list/";
         });
 
         $("#user_delete").click(function(e) {
