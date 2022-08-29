@@ -116,6 +116,11 @@
     $("#use_yn").val($("#use_yn_hidden").val()).prop("selected", true);
 
     $(function() {
+        $("#user_cancel").click(function(e) {
+            var user_idx = $("#user_idx").val();
+            location.href = "/member/view/"+user_idx;
+        });
+
         $("#user_save").click(function(e) {
             $.ajax({
                 url: "/member/update",
