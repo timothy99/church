@@ -61,7 +61,7 @@ class Upload extends BaseController
         $proc_result["result"] = $result;
         $proc_result["message"] = $message;
         $proc_result["profile_image"] = $insert_id;
-        $proc_result["image_base64_html"] = "<img src=\"".$image_base64."\">";
+        $proc_result["image_base64"] = $image_base64;
 
         echo json_encode($proc_result);
     }

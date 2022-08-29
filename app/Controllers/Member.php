@@ -27,7 +27,7 @@ class Member extends BaseController
 
         $cnt = $model_result["db_cnt"]; // 데이터 총합
         $paging = $paging_model->getPaging($page, $rows, $cnt);
-        $paging_view = view("paging/paging", ["paging"=>$paging, "q"=>$search_text]); // 페이징 뷰
+        $paging_view = view("paging/paging", ["paging"=>$paging, "q"=>$search_text, "href_link"=>"/member/list"]); // 페이징 뷰
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
@@ -83,7 +83,7 @@ class Member extends BaseController
         $user_idx = $this->request->uri->getSegment(3);
         $model_result = $member_model->getMemberInfo($user_idx);
         $member_info = $model_result["db_info"];
-        $member_info->profile_image_base64_html = $member_model->getMemberProfileImageInfo();
+        $member_info->profile_image_base64_html = $member_model->getMemberProfileImageInfo($user_idx);
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
@@ -105,7 +105,6 @@ class Member extends BaseController
     public function update()
     {
         $member_model = new MemberModel();
-        $security_model= new SecurityModel();
 
         $result = true;
         $message = "회원수정이 완료되었습니다.";
@@ -128,12 +127,9 @@ class Member extends BaseController
         }
 
         if ($result == true) {
-            // 데이터 암호화
-            $user_name_enc = $security_model->getTextEncrypt($user_name); // 이름 암호화
-
             $data = array();
             $data["user_idx"] = $user_idx;
-            $data["user_name"] = $user_name_enc;
+            $data["user_name"] = $user_name;
             $data["admin_yn"] = $admin_yn;
             $data["profile_image"] = $profile_image;
             $data["use_yn"] = $use_yn;

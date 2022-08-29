@@ -68,6 +68,8 @@ class FileModel extends Model
         $user_session = $session->get("user_session");
         $user_id = $user_session->user_id;
 
+        $today = date("YmdHis");
+
         $result = true;
         $message = "입력이 잘 되었습니다";
 
@@ -83,9 +85,9 @@ class FileModel extends Model
             $builder->set("category", $category);
             $builder->set("del_yn", "N");
             $builder->set("ins_id", $user_id);
-            $builder->set("ins_date", "now()", false);
+            $builder->set("ins_date", $today);
             $builder->set("upd_id", $user_id);
-            $builder->set("upd_date", "now()", false);
+            $builder->set("upd_date", $today);
             $result = $builder->insert();
             $insert_id = $db->insertID();
             $db->transComplete();
