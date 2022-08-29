@@ -72,9 +72,9 @@
 <script>
     // 좌측 메뉴 강조하는 함수
     $(window).on("load", function() {
-        $("#upper-meal-list").addClass("menu-open");
-        $("#a-meal-list").addClass("active");
-        $("#bottom-meal-list").addClass("active");
+        $("#upper-meal-calendar").addClass("menu-open");
+        $("#a-meal-calendar").addClass("active");
+        $("#bottom-meal-calendar").addClass("active");
     });
 
     $(function() {
