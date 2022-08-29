@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\MemberModel;
 use App\Models\PagingModel;
-use App\Models\SecurityModel;
 
 class Member extends BaseController
 {
@@ -27,7 +26,7 @@ class Member extends BaseController
 
         $cnt = $model_result["db_cnt"]; // 데이터 총합
         $paging = $paging_model->getPaging($page, $rows, $cnt);
-        $paging_view = view("paging/paging", ["paging"=>$paging, "q"=>$search_text]); // 페이징 뷰
+        $paging_view = view("paging/paging", ["paging"=>$paging, "q"=>$search_text, "href_link"=>"/member/list"]); // 페이징 뷰
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
@@ -82,14 +81,16 @@ class Member extends BaseController
 
         $user_idx = $this->request->uri->getSegment(3);
         $model_result = $member_model->getMemberInfo($user_idx);
+        $member_info = $model_result["db_info"];
+        $member_info->profile_image_base64_html = $member_model->getMemberProfileImageInfo($user_idx);
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
         $proc_result["message"] = $model_result["message"];
-        $proc_result["member_info"] = $model_result["db_info"];
+        $proc_result["member_info"] = $member_info;
 
         $view = view("member/edit", $proc_result);
-        echo $view;
+        return $view;
     }
 
 
@@ -103,7 +104,6 @@ class Member extends BaseController
     public function update()
     {
         $member_model = new MemberModel();
-        $security_model= new SecurityModel();
 
         $result = true;
         $message = "회원수정이 완료되었습니다.";
@@ -112,28 +112,25 @@ class Member extends BaseController
         $user_name = $this->request->getPost("user_name", FILTER_SANITIZE_SPECIAL_CHARS);
         $admin_yn = $this->request->getPost("admin_yn", FILTER_SANITIZE_SPECIAL_CHARS);
         $use_yn = $this->request->getPost("use_yn", FILTER_SANITIZE_SPECIAL_CHARS);
-
-        $session = $this->session;
+        $profile_image = $this->request->getPost("profile_image", FILTER_SANITIZE_SPECIAL_CHARS);
 
         // 세션의 정보중 아이디를 갖고 옵니다.
+        $session = \Config\Services::session();
         $user_session = $session->get("user_session");
         $upd_id = $user_session->user_id;
 
         $user_name = trim($user_name);
-
         if ($user_name == null) {
             $result = false;
             $message = "이름을 입력해주세요.";
         }
 
         if ($result == true) {
-            // 데이터 암호화
-            $user_name_enc = $security_model->getTextEncrypt($user_name); // 이름 암호화
-
             $data = array();
             $data["user_idx"] = $user_idx;
-            $data["user_name"] = $user_name_enc;
+            $data["user_name"] = $user_name;
             $data["admin_yn"] = $admin_yn;
+            $data["profile_image"] = $profile_image;
             $data["use_yn"] = $use_yn;
             $data["upd_id"] = $upd_id;
 

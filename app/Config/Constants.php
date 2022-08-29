@@ -100,3 +100,4 @@ defined("CSS_VER") || define("CSS_VER", "0.0.1"); // CSS버전
 defined("JS_VER") || define("JS_VER", "0.0.1"); // JS버전
 defined("PROGRAM_VER") || define("PROGRAM_VER", "0.0.1"); // 메뉴 하단의 프로그램 버전 릴리즈 될때마다 변경하자
 defined("SITE_NAME") || define("SITE_NAME", "그룹웨어"); // 사이트 명칭
+defined("UPLOADPATH") || define("UPLOADPATH", WRITEPATH."uploads/"); // 사이트 명칭

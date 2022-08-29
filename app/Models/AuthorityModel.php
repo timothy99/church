@@ -102,7 +102,14 @@ class AuthorityModel extends Model
             $user_idx = $user_session->user_idx;
             $member_model = new MemberModel();
             $member_result = $member_model->getMemberInfo($user_idx);
-            $session->set("user_session", $member_result["db_info"]); // 세션에 정보입력
+            $member_info = $member_result["db_info"];
+            $profile_image_db = $member_info->profile_image;
+            $profile_image_session = $user_session->profile_image;
+            if($profile_image_db != $profile_image_session) {
+                $profile_image_base64 = $member_model->getMemberProfileImageInfo($user_idx);
+                $member_info->profile_image_base64 = $profile_image_base64;
+            }
+            $session->set("user_session", $member_info); // 세션에 정보입력
         } else { // 로그인 안했으나 로그인이 필요한 url인 경우
             $base_url = base_url(); // 기본 url 입력
             $session->destroy(); // 세션 삭제

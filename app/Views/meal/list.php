@@ -8,13 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">식단</h1>
+                        <h1 class="m-0">식단(목록형)</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item">구내식당</li>
-                            <li class="breadcrumb-item active">식단</li>
+                            <li class="breadcrumb-item active">식단(목록형)</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -26,10 +25,60 @@
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
+                            <div class="card-header">
+                                <h3 class="card-title">총 <?=number_format($cnt) ?>건</h3>
+                                <div class="card-tools">
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" id="q" name="q" class="form-control float-right" placeholder="검색어를 입력하세요" value="<?=$q ?>">
+                                        <div class="input-group-append">
+                                            <button type="button" class="btn btn-default" id="q_search" name="q_search">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-header -->
                             <div class="card-body">
-                                <div id="calendar"></div>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>날짜</th>
+                                            <th>식단</th>
+                                            <th>등록일</th>
+                                            <th>등록자</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+<?php
+    foreach ($meal_list as $no => $val) :
+?>
+                                        <tr>
+                                            <td class="text-center"><?=$start_row+$no ?></td>
+                                            <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_date ?></a></td>
+                                            <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_menu ?></a></td>
+                                            <td><?=$val->ins_date ?></td>
+                                            <td><?=$val->ins_id ?></td>
+                                        </tr>
+<?php
+    endforeach;
+?>
+<?php
+    if (count($meal_list) == 0) :
+?>
+                                        <tr>
+                                            <td colspan="5" class="text-center">데이터가 없습니다</td>
+                                        </tr>
+<?php
+    endif;
+?>
+                                    </tbody>
+                                </table>
                             </div>
                             <!-- /.card-body -->
+                            <div class="card-footer clearfix">
+<?=$paging_view ?>
+                            </div>
                         </div><!-- /.card -->
                     </div>
                 </div>
@@ -42,40 +91,26 @@
 <script>
     // 좌측 메뉴 강조하는 함수
     $(window).on("load", function() {
-        $("#upper-meal-list").addClass("menu-open");
-        $("#a-meal-list").addClass("active");
+        $("#upper-meal-calendar").addClass("menu-open");
+        $("#a-meal-calendar").addClass("active");
         $("#bottom-meal-list").addClass("active");
     });
 
-    // 달력생성
-    $(function () {
-        var date = new Date()
-        var d = date.getDate();
-        var m = date.getMonth();
-        var y = date.getFullYear()
-
-        var Calendar = FullCalendar.Calendar;
-        var calendar_elemenet = document.getElementById("calendar");
-        var calendar_render = new Calendar(calendar_elemenet, {
-            dateClick: function(info) { // 날짜 클릭시 액션
-                location.href = "/meal/view/"+info.dateStr;
-            },
-            eventClick: function(info) { // 이벤트 클릭시 액션
-                location.href = "/meal/view/"+info.event.id;
-            },
-            headerToolbar: {
-                left: "",
-                center: "title",
-                right: "today prev,next"
-            },
-            themeSystem: "bootstrap",
-            locale: "ko",
-            events: {
-                url: "/meal/month",
-                method: "POST"
+    $(function() {
+        $("#q").keydown(function(e) {
+            if(e.keyCode == 13) {
+                search();
             }
+            
         });
-        calendar_render.render();
+
+        $("#q_search").click(function(e) {
+            search();
+        });
     });
 
+    function search() {
+        var q = $("#q").val();
+        location.href = "/meal/list?p=1&q="+q;
+    }
 </script>

@@ -42,6 +42,10 @@
                                             <td><?=$user_info->user_name ?></td>
                                         </tr>
                                         <tr>
+                                            <th>프로필 이미지</th>
+                                            <td><img src="<?=$user_info->profile_image_base64 ?>"></td>
+                                        </tr>
+                                        <tr>
                                             <th>관리자 여부</th>
                                             <td><?=$user_info->admin_yn ?></td>
                                         </tr>
