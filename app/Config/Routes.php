@@ -36,26 +36,27 @@ $routes->set404Override();
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->get("/", "Dashboard::dashboard"); // 메인
+$routes->get("/batch/meal", "Batch::meal"); // 식단 배치
+$routes->get("/business/search", "Business::search"); // 휴폐업 조회 화면
 $routes->get("/dashboard/dashboard", "Dashboard::dashboard"); // 메인
-$routes->get("/user/login", "User::login"); // 로그인
-$routes->post("/user/signin", "User::signin"); // 로그인 처리
-$routes->get("/user/register", "User::register"); // 가입시 등록폼
-$routes->post("/user/signup", "User::signup"); // 가입처리
-$routes->get("/user/logout", "User::logout"); // 로그아웃
+$routes->get("/meal/edit/(:any)", "Meal::edit/$1"); // 구내식당 데이터 수정
+$routes->get("/meal/calendar", "Meal::calendar"); // 구내식당(달력형)
+$routes->get("/meal/list", "Meal::list"); // 구내식당(목록형)
+$routes->get("/meal/view/(:any)", "Meal::view/$1"); // 구내식당 데이터 보기
+$routes->get("/member/edit/(:num)", "Member::edit/$1"); // 회원 정보
 $routes->get("/member/list", "Member::list"); // 회원 목록
 $routes->get("/member/view/(:num)", "Member::view/$1"); // 회원 정보
-$routes->get("/member/edit/(:num)", "Member::edit/$1"); // 회원 정보
-$routes->post("/member/update", "Member::update"); // 회원 정보 수정
-$routes->get("/business/search", "Business::search"); // 휴폐업 조회 화면
+$routes->get("/user/login", "User::login"); // 로그인
+$routes->get("/user/logout", "User::logout"); // 로그아웃
+$routes->get("/user/register", "User::register"); // 가입시 등록폼
 $routes->post("/business/result", "Business::result"); // 휴폐업 조회 로직
-$routes->get("/meal/list", "Meal::list"); // 구내식당
-$routes->get("/meal/view/(:any)", "Meal::view/$1"); // 구내식당 데이터 보기
-$routes->get("/meal/edit/(:any)", "Meal::edit/$1"); // 구내식당 데이터 수정
-$routes->post("/meal/update", "Meal::update"); // 구내식당 데이터 저장
-$routes->post("/meal/month", "Meal::month"); // 구내식당 월별 데이터
 $routes->post("/meal/delete", "Meal::Delete"); // 식단 데이터 삭제
-$routes->get("/batch/meal", "Batch::meal"); // 식단 배치
+$routes->post("/meal/month", "Meal::month"); // 구내식당 월별 데이터
+$routes->post("/meal/update", "Meal::update"); // 구내식당 데이터 저장
+$routes->post("/member/update", "Member::update"); // 회원 정보 수정
 $routes->post("/upload/profile", "Upload::profile"); // 프로필 이미지 업로드
+$routes->post("/user/signin", "User::signin"); // 로그인 처리
+$routes->post("/user/signup", "User::signup"); // 가입처리
 
 /*
  * --------------------------------------------------------------------
