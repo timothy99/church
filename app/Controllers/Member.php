@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\Models\MemberModel;
 use App\Models\PagingModel;
-use App\Models\SecurityModel;
 
 class Member extends BaseController
 {
