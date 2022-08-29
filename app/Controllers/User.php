@@ -2,9 +2,10 @@
 
 namespace App\Controllers;
 
-use App\Models\UserModel;
+use App\Models\MemberModel;
 use App\Models\MessageModel;
 use App\Models\SecurityModel;
+use stdClass;
 
 class User extends BaseController
 {
@@ -49,7 +50,7 @@ class User extends BaseController
      */
     public function signin()
     {
-        $user_model = new UserModel();
+        $member_model = new MemberModel();
         $security_model = new SecurityModel();
 
         $session = \Config\Services::session(); // 세션을 초기화 합니다.
@@ -78,26 +79,25 @@ class User extends BaseController
         $data["user_id"] = $user_id;
         $data["user_password"] = $user_password_enc;
 
-        $model_result = $user_model->getLoginInfo($data);
+        $model_result = $member_model->getLoginInfo($data);
         $result = $model_result["result"];
-        if ($result == false) {
+        if ($result == false) { // 회원정보 조회에 오류가 발생한 경우
             $message = $model_result["message"];
-        }
+        } else { // 조회에 성공한 경우
+            $user_login_info = $model_result["db_info"];
+            if ($user_login_info->cnt == 0) { // 조회에 성공했으나 결과가 없는 경우
+                $result = false;
+                $message = "아이디나 암호를 확인해주시기 바랍니다.";
+            }
 
-        $user_login_info = $model_result["db_info"];
-        if ($user_login_info->admin_yn == "N") {
-            $result = false;
-            $message = "아직 관리자로 승인되지 않았습니다";
-        }
-
-        if ($user_login_info->cnt == 0) {
-            $result = false;
-            $message = "아이디나 암호를 확인해주시기 바랍니다.";
-        }
-
-        if ($result == true) {
-            // 세션에 데이터 입력
-            $session->set("user_session", $user_login_info);
+            if ($result == true) { // 세션에 데이터 입력
+                $user_idx = $user_login_info->user_idx;
+                $model_result = $member_model->getMemberInfo($user_idx);
+                $member_info = $model_result["db_info"];
+                $profile_image_base64 = $member_model->getMemberProfileImageInfo($user_idx);
+                $member_info->profile_image_base64 = $profile_image_base64;
+                $session->set("user_session", $member_info);
+            }
         }
 
         $proc_result = array();
@@ -143,7 +143,7 @@ class User extends BaseController
      */
     public function signup()
     {
-        $user_model = new UserModel();
+        $member_model = new MemberModel();
         $message_model = new MessageModel();
         $security_model = new SecurityModel();
 
@@ -181,7 +181,7 @@ class User extends BaseController
 
         if($result == true) { 
             // 아이디 중복체크
-            $model_result = $user_model->getUserIdCheck($user_id);
+            $model_result = $member_model->getUserIdCheck($user_id);
             $result = $model_result["result"];
             $message = $model_result["message"];
         }
@@ -196,7 +196,7 @@ class User extends BaseController
             $data["user_id"] = $user_id;
             $data["user_password"] = $user_password_enc;
 
-            $model_result = $user_model->insertUserInfo($data);
+            $model_result = $member_model->insertUserInfo($data);
             $result = $model_result["result"];
             $message = $model_result["message"];
         }

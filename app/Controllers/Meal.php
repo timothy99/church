@@ -3,18 +3,50 @@
 namespace App\Controllers;
 
 use App\Models\MealModel;
+use App\Models\PagingModel;
 use stdClass;
 
 class Meal extends BaseController
 {
+    public function calendar()
+    {
+        $view = view("meal/calendar");
+        echo $view;
+    }
+
     public function list()
     {
-        $view = view("meal/list");
+        $paging_model = new PagingModel();
+        $meal_model = new MealModel();
+
+        $rows = 10;
+        $page = $this->request->getGet("p") ?? 1;
+        $search_text = $this->request->getGet("q", FILTER_SANITIZE_SPECIAL_CHARS);
+        $model_result = $meal_model->getMealList($page, $rows, $search_text);
+
+        $cnt = $model_result["db_cnt"]; // 데이터 총합
+        $paging = $paging_model->getPaging($page, $rows, $cnt);
+        $paging_view = view("paging/paging", ["paging"=>$paging, "q"=>$search_text, "href_link"=>"/meal/list"]); // 페이징 뷰
+
+        $proc_result = array();
+        $proc_result["result"] = $model_result["result"];
+        $proc_result["message"] = $model_result["message"];
+        $proc_result["meal_list"] = $model_result["db_list"];
+        $proc_result["cnt"] = $cnt;
+        $proc_result["paging"] = $paging;
+        $proc_result["start_row"] = ($page-1)*$rows+1;
+        $proc_result["p"] = $page;
+        $proc_result["q"] = $search_text;
+        $proc_result["paging_view"] = $paging_view; // 페이징 뷰
+
+        $view = view("meal/list", $proc_result);
         echo $view;
     }
 
     public function month()
     {
+        $meal_model = new MealModel();
+
         $start = $this->request->getPost("start");
         $end = $this->request->getPost("end");
 
@@ -25,7 +57,6 @@ class Meal extends BaseController
         $meal_data["start_date"] = $start_date;
         $meal_data["end_date"] = $end_date;
 
-        $meal_model = new MealModel();
         $db_result = $meal_model->getList($meal_data);
         $meal_list = $db_result["db_list"];
 
@@ -34,8 +65,9 @@ class Meal extends BaseController
 
     public function view()
     {
-        $meal_date = $this->request->uri->getSegment(3);
         $meal_model = new MealModel();
+
+        $meal_date = $this->request->uri->getSegment(3);
         $db_result = $meal_model->getInfo($meal_date);
         $meal_info = $db_result["db_info"];
 
@@ -62,8 +94,10 @@ class Meal extends BaseController
 
     public function edit()
     {
-        $meal_date = $this->request->uri->getSegment(3);
         $meal_model = new MealModel();
+
+        $meal_date = $this->request->uri->getSegment(3);
+
         $db_result = $meal_model->getInfo($meal_date);
         $meal_info = $db_result["db_info"];
 
@@ -77,6 +111,8 @@ class Meal extends BaseController
 
     public function update()
     {
+        $meal_model = new MealModel();
+
         $meal_date = $this->request->getPost("meal_date", FILTER_SANITIZE_SPECIAL_CHARS);
         $meal_menu = $this->request->getPost("meal_menu");
 
@@ -84,7 +120,6 @@ class Meal extends BaseController
         $meal_data["meal_date"] = $meal_date;
         $meal_data["meal_menu"] = $meal_menu;
 
-        $meal_model = new MealModel();
         $model_result = $meal_model->getInfo($meal_date);
         $meal_info = $model_result["db_info"];
         if($meal_info == null) {

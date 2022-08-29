@@ -36,10 +36,13 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="/image/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img src="<?=$user_info->profile_image_base64 ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block"><?=$user_info->user_name ?></a>
+                    <a href="/myinfo/edit" class="d-block"><?=$user_info->user_name ?></a>
+                </div>
+                <div class="info">
+                    <a href="/user/logout" class="d-block">로그아웃</a>
                 </div>
             </div>
 
@@ -103,16 +106,22 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item" id="upper-meal-list">
-                        <a href="/meal/list" class="nav-link" id="a-meal-list">
+                    <li class="nav-item" id="upper-meal-calendar">
+                        <a href="/meal/list" class="nav-link" id="a-meal-calendar">
                             <i class="nav-icon fas fa-book"></i>
                             <p>구내식당<i class="fas fa-angle-left right"></i></p>
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
+                                <a href="/meal/calendar" class="nav-link" id="bottom-meal-calendar">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>식단(달력형)</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="/meal/list" class="nav-link" id="bottom-meal-list">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>식단</p>
+                                    <p>식단(목록형)</p>
                                 </a>
                             </li>
                         </ul>
