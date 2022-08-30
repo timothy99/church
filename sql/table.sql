@@ -51,3 +51,36 @@ create table gwt_file (
     primary key (file_idx),
     key file_name_org (file_name_org)
 ) engine=InnoDB auto_increment=1 default charset=utf8 comment='사용자 정보';
+
+create table gwt_board (
+    board_idx int not null auto_increment comment '게시물 번호',
+    upper_board_idx int not null default 0 comment '답변인 경우 원래 게시물 번호',
+    title varchar(1000) not null comment '제목',
+    contents text not null comment '내용',
+    reply_cnt int not null default 0 comment '답변 등록수',
+    comment_cnt int not null default 0 comment '댓글 등록수',
+    heart_cnt int not null default 0 comment '공감수',
+    hit_cnt int not null default 0 comment '조회수',
+    http_link varchar(1000) not null comment '링크',
+    notice_yn enum('Y', 'N') not null default 'N' comment '공지사항 여부',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(200) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(200) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (board_idx)
+) engine=InnoDB auto_increment=1 default charset=utf8 comment='게시판 글';
+
+create table gwt_board_comment (
+    comment_idx int not null auto_increment comment '댓글 번호',
+    board_idx int not null default 0 comment '게시물 번호',
+    upper_comment_idx int not null comment '대댓글인 경우 원래 댓글 번호',
+    comments text not null comment '댓글 내용',
+    heart_cnt int not null default 0 comment '공감수',
+    del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
+    ins_id varchar(200) not null comment '등록자',
+    ins_date varchar(14) not null comment '등록일',
+    upd_id varchar(200) not null comment '수정자',
+    upd_date varchar(14) not null comment '수정일',
+    primary key (comment_idx)
+) engine=InnoDB auto_increment=1 default charset=utf8 comment='댓글';

@@ -24,7 +24,7 @@ class FileModel extends Model
         return $check_mime_type;
     }
 
-    // 확장자 체크 해서 필터에 따라 분류가 맞는지 확인
+    // 이미지 사이즈 체크해서 우리가 설정한 크기와 맞는지 확인
     public function checkImageSize($image_size, $limit_size)
     {
         $limit_size = $limit_size*1024*1024; // MB단위로 입력된 숫자를 바이트 단위로 변경
