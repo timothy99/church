@@ -49,6 +49,7 @@ class AuthorityModel extends Model
         // 해당되는 IP인치 체크하는 uri
         $check_uri = array();
         $check_uri[] = "batch/meal";
+        $check_uri[] = "batch/attendance";
 
         $is_url = in_array($current_uri, $check_uri);
         if($is_url == true) {
@@ -91,6 +92,7 @@ class AuthorityModel extends Model
         $allow_uri[] = "user/register";
         $allow_uri[] = "user/signup";
         $allow_uri[] = "batch/meal";
+        $allow_uri[] = "batch/attendance";
 
         if (in_array($current_uri, $allow_uri)) { // 로그인 없어도 허용되는 url은
             // 아무것도 하지 않음
