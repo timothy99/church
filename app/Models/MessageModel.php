@@ -44,10 +44,21 @@ class MessageModel extends Model
         curl_close($ch);
     }
 
-    // 네이트온 팀룸으로 데이터 보내기
-    public function sendTeamRoom($message)
+
+
+    /**
+     * [Description for sendTeamRoom]
+     *
+     * @param string $url_code 함수내에 정의된 url을 불러오기 위한 코드
+     * @param string $message
+     * 
+     * @return bool
+     * 
+     * @author     timothy99 
+     */
+    public function sendTeamRoom(string $url_code, string $message) : bool
     {
-        $teamroom_host = env("nateon.teamroot.webhook.api.url");
+        $teamroom_host = env("nateon.teamroom.webhook.api.url.".$url_code);
 
         $payload = array();
         $payload["content"] = $message;

@@ -37,6 +37,7 @@ $routes->set404Override();
 // route since we don't have to scan directories.
 $routes->get("/", "Dashboard::dashboard"); // 메인
 $routes->get("/batch/meal", "Batch::meal"); // 식단 배치
+$routes->get("/batch/attendance", "Batch::attendance"); // 출석체크 이벤트 알림
 $routes->get("/business/search", "Business::search"); // 휴폐업 조회 화면
 $routes->get("/dashboard/dashboard", "Dashboard::dashboard"); // 메인
 $routes->get("/meal/edit/(:any)", "Meal::edit/$1"); // 구내식당 데이터 수정

@@ -20,8 +20,16 @@ class Batch extends BaseController
             logMessage("오늘은 구내식당 메뉴가 없네요");
         } else {
             $message = $meal_info->meal_menu;
-            $model_result = $message_model->sendTeamRoom($message);
+            $model_result = $message_model->sendTeamRoom("N01", $message);
         }
+    }
+
+    // 출석체크 이벤트 알림
+    public function attendance()
+    {
+        $message_model = new MessageModel();
+        $message = "전남 / 옹진 / 거창 출석 체크 해주세요~!!";
+        $model_result = $message_model->sendTeamRoom("N03", $message);
     }
 
 }
