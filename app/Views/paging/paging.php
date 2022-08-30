@@ -1,4 +1,4 @@
-                                <ul class="pagination pagination-sm m-0 float-right">
+                                <ul class="pagination pagination-sm m-0">
                                     <li class="page-item"><a class="page-link" href="<?=$href_link ?>?p=1&q=<?=$q ?>">&laquo;</a></li>
                                     <li class="page-item"><a class="page-link" href="<?=$href_link ?>?p=<?=$paging["start_page"] ?>&q=<?=$q ?>">&lt;</a></li>
 <?php

@@ -60,6 +60,7 @@ $routes->post("/user/signin", "User::signin"); // 로그인 처리
 $routes->post("/user/signup", "User::signup"); // 가입처리
 $routes->get("/board/list", "Board::list"); // 게시판 목록 화면
 $routes->get("/board/view/(:num)", "Board::view/$1"); // 게시판 보기 화면
+$routes->get("/board/write", "Board::write"); // 게시판 쓰기 화면
 $routes->get("/board/edit/(:num)", "Board::edit/$1"); // 게시판 수정 화면
 $routes->post("/board/insert", "Board::insert"); // 게시판 입력/수정 로직
 $routes->post("/board/update/(:num)", "Board::update/$1"); // 게시판 입력/수정 로직

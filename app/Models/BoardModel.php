@@ -7,28 +7,35 @@ use App\Models\DateModel;
 class BoardModel extends Model
 {
     // 달력용 목록 정보 
-    public function getList($meal_data)
+    public function getBoardList($page, $rows, $search_text)
     {
-        $start_date = $meal_data["start_date"];
-        $end_date = $meal_data["end_date"];
-
-        $db = $this->db;
+        $date_model = new DateModel();
 
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
 
-        $builder = $db->table("gwt_meal");
-        $builder->select("meal_menu as title");
-        $builder->select("meal_date as start");
-        $builder->select("meal_date as id");
-        $builder->where("meal_date between '$start_date' and '$end_date' ");
+        $db = db_connect();
+        $offset = ($page-1)*$rows; // 오프셋 계산
+        $builder = $db->table("gwt_board");
+        if ($search_text != null) {
+            $builder->like("title", $search_text);
+            $builder->like("contents", $search_text);
+        }
         $builder->where("del_yn", "N");
-        $db_list = $builder->get()->getResult(); // 쿼리 실행
+        $builder->limit($rows, $offset);
+        $db_cnt = $builder->countAllResults(false); // 현제 데이터 총합
+        $db_list = $builder->get()->getResultObject(); // 쿼리 실행
+        foreach($db_list as $no => $val) {
+            $ins_date = $val->ins_date;
+            $ins_date = $date_model->convertTextToDate($ins_date, "1", "1");
+            $db_list[$no]->ins_date = $ins_date;
+        }
 
         $model_result = array();
         $model_result["result"] = $db_result;
         $model_result["message"] = $db_message;
         $model_result["db_list"] = $db_list;
+        $model_result["db_cnt"] = $db_cnt;
 
         return $model_result;
     }
