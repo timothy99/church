@@ -25,7 +25,7 @@ class Board extends BaseController
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];
         $proc_result["message"] = $model_result["message"];
-        $proc_result["meal_list"] = $model_result["db_list"];
+        $proc_result["board_list"] = $model_result["db_list"];
         $proc_result["cnt"] = $cnt;
         $proc_result["paging"] = $paging;
         $proc_result["start_row"] = ($page-1)*$rows+1;
@@ -40,6 +40,22 @@ class Board extends BaseController
     public function view()
     {
         // 내용화면
+    }
+
+    public function write()
+    {
+        // 글쓰기는 아무 데이터가 없으니까 빈값을 넘긴다
+        $board_info = new stdClass();
+        $board_info->board_idx = 0;
+        $board_info->title = null;
+        $board_info->contents = null;
+        $board_info->notice_yn = "N";
+
+        $data = array();
+        $data["href_action"] = "/board/insert";
+        $data["board_info"] = $board_info;
+        $view = view("board/edit", $data);
+        echo $view;
     }
 
     public function edit()

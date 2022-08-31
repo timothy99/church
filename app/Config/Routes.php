@@ -58,12 +58,6 @@ $routes->post("/member/update", "Member::update"); // 회원 정보 수정
 $routes->post("/upload/profile", "Upload::profile"); // 프로필 이미지 업로드
 $routes->post("/user/signin", "User::signin"); // 로그인 처리
 $routes->post("/user/signup", "User::signup"); // 가입처리
-$routes->get("/board/list", "Board::list"); // 게시판 목록 화면
-$routes->get("/board/view/(:num)", "Board::view/$1"); // 게시판 보기 화면
-$routes->get("/board/edit/(:num)", "Board::edit/$1"); // 게시판 수정 화면
-$routes->post("/board/insert", "Board::insert"); // 게시판 입력/수정 로직
-$routes->post("/board/update/(:num)", "Board::update/$1"); // 게시판 입력/수정 로직
-$routes->post("/board/delete/(:num)", "Board::delete/$1"); // 게시판 삭제 로직
 
 /*
  * --------------------------------------------------------------------

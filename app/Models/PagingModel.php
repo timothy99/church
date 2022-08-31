@@ -40,6 +40,10 @@ class PagingModel extends Model
             $end_page = $max_page;
         }
 
+        if($end_page == 0) { // 데이터가 하나도 없어서 0이라면
+            $end_page = 1; // 1페이지로 고정
+        }
+
         $page_arr = array();
         for($i = $start_page; $i <= $end_page; $i++) {
             $active_class = "";

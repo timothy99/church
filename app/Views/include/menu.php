@@ -127,6 +127,21 @@
                         </ul>
                     </li>
 
+                    <li class="nav-item" id="upper-board-list">
+                        <a href="/board/list" class="nav-link" id="a-board-list">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>게시판<i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/board/list" class="nav-link" id="bottom-board-list">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>게시판</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
