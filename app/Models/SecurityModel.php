@@ -24,7 +24,8 @@ class SecurityModel extends Model
         $characters_number = "0123456789";
         $characters_lower = "abcdefghijklmnopqrstuvwxyz";
         $characters_upper = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-        $characters_etc = "~!@#<>?,.%^&*(_+=-";
+        $characters_etc = "~!@#<>?,.%^&*(_+=-"; // 특수문자
+        $characters_special = "-_"; // 지정문자
 
         $characters = "";
         if ($method == 0) { // 모든문자
@@ -37,6 +38,8 @@ class SecurityModel extends Model
             $characters = $characters_lower;
         } elseif ($method == 4) { // 숫자+대문자+소문자
             $characters = $characters_number.$characters_lower.$characters_upper;
+        } elseif ($method == 5) { // 숫자+대문자+소문자+지정문자
+            $characters = $characters_number.$characters_lower.$characters_upper.$characters_special;
         }
 
         $random_string = "";

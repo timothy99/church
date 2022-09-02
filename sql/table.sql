@@ -37,8 +37,9 @@ create table gwt_user (
 
 create table gwt_file (
     file_idx int not null auto_increment comment '연번',
+    file_id varchar(32) DEFAULT NULL COMMENT '파일 불러오기를 위한 id',
     file_name_org varchar(1000) not null comment '원본 파일명',
-    file_name_stored varchar(1000) not null comment '저장된 파일명',
+    file_directory varchar(10) not null comment '저장된 파일의 경로(연/월)',
     file_name_uploaded varchar(1000) not null comment '저장된 파일 전체 경로',
     file_size int not null comment '파일 크기',
     mime_type varchar(100) not null comment '파일 mime type',
@@ -63,6 +64,7 @@ create table gwt_board (
     hit_cnt int not null default 0 comment '조회수',
     http_link varchar(1000) not null comment '링크',
     notice_yn enum('Y', 'N') not null default 'N' comment '공지사항 여부',
+    secret_yn enum('Y', 'N') not null default 'N' comment '비밀글 여부',
     del_yn enum('Y', 'N') not null default 'N' comment '삭제 여부',
     ins_id varchar(200) not null comment '등록자',
     ins_date varchar(14) not null comment '등록일',

@@ -50,6 +50,8 @@ class Board extends BaseController
         $board_info->title = null;
         $board_info->contents = null;
         $board_info->notice_yn = "N";
+        $board_info->secret_yn = "N";
+        $board_info->http_link = null;
 
         $data = array();
         $data["href_action"] = "/board/insert";
@@ -65,7 +67,7 @@ class Board extends BaseController
 
     public function insert()
     {
-        // 입력 로직
+        print_r($_POST);
     }
 
     public function update()

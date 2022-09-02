@@ -28,21 +28,27 @@
                     <div class="col-12">
                         <div class="card card-info">
                             <div class="card-header">
-                                <h3 class="card-title">Horizontal Form</h3>
+                                <h3 class="card-title">글쓰기</h3>
                             </div>
                             <div class="card-body">
                                 <div class="form-group row">
-                                    <div class="offset-sm-2 col-sm-10">
+                                    <div class="offset-sm-2 col-sm-1">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="exampleCheck2">
-                                            <label class="form-check-label" for="exampleCheck2">공지</label>
+                                            <input type="checkbox" class="form-check-input" id="notice_yn" name="notice_yn">
+                                            <label class="form-check-label" for="notice_yn">공지</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-9">
+                                        <div class="form-check">
+                                            <input type="checkbox" class="form-check-input" id="secret_yn" name="secret_yn">
+                                            <label class="form-check-label" for="secret_yn">비밀글</label>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group row">
                                     <label for="inputEmail3" class="col-sm-2 col-form-label">제목</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요" value="<?=$board_info->title ?>">
+                                        <input type="text" class="form-control" id="title" name="title" placeholder="제목을 입력하세요" value="<?=$board_info->title ?>">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -51,10 +57,16 @@
                                         <textarea class="form-control" id="contents" name="contents" rows="6"><?=$board_info->contents ?></textarea>
                                     </div>
                                 </div>
+                                <div class="form-group row">
+                                    <label for="inputEmail3" class="col-sm-2 col-form-label">링크</label>
+                                    <div class="col-sm-10">
+                                        <input type="text" class="form-control" id="http_link" name="http_link" placeholder="링크를 입력하세요" value="<?=$board_info->http_link ?>">
+                                    </div>
+                                </div>
                             </div>
                             <div class="card-footer">
-                                <button type="button" class="btn btn-info" id="board_save" name="board_save">저장</button>
-                                <button type="button" class="btn btn-default float-right" id="board_cancel" name="board_cancel">취소</button>
+                                <button type="button" class="btn btn-danger" id="board_cancel" name="board_cancel">취소</button>
+                                <button type="button" class="btn btn-info float-right" id="board_save" name="board_save">저장</button>
                             </div>
                         </div>
                     </div>
@@ -75,9 +87,9 @@
     });
 
     $(function() {
-        $("#meal_save").click(function(e) {
+        $("#board_save").click(function(e) {
             $.ajax({
-                url: "/meal/update",
+                url: "<?=$href_action ?>",
                 type: "POST",
                 dataType: "json",
                 data: $("#frm").serialize(),
@@ -85,7 +97,7 @@
                     var result = proc_result.result;
                     var message = proc_result.message;
                     if(result == true) {
-                        location.href = "/meal/list";
+                        location.href = "/board/list";
                     } else {
                         alert(message);
                     }
@@ -93,9 +105,17 @@
             });
         });
 
-        $("#meal_cancel").click(function(e) {
+        $("#board_cancel").click(function(e) {
             history.go(-1);
         });
+
+        $("#contents").summernote({
+            height: 300,    // set editor height
+            minHeight: null,// set minimum height of editor
+            maxHeight: null,// set maximum height of editor
+            focus: true,    // set focus to editable area after initializing summe
+            lang: "ko-KR"   // default: 'en-US'
+        }); // Summernote
     });
 
 </script>

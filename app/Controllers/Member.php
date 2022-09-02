@@ -82,7 +82,6 @@ class Member extends BaseController
         $user_idx = $this->request->uri->getSegment(3);
         $model_result = $member_model->getMemberInfo($user_idx);
         $member_info = $model_result["db_info"];
-        $member_info->profile_image_base64_html = $member_model->getMemberProfileImageInfo($user_idx);
 
         $proc_result = array();
         $proc_result["result"] = $model_result["result"];

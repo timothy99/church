@@ -63,7 +63,7 @@
                                         </tr>
                                         <tr>
                                             <th>기존 프로필 이미지</th>
-                                            <td id="uploaded_profile_image"><img src="<?=$member_info->profile_image_base64_html ?>"></td>
+                                            <td id="uploaded_profile_image"><img src="https://grw.inwoo.net/attach/view/znHfOXE6g4icZnGvNWOsQwn0mr2BXXZZ"></td>
                                         </tr>
                                         <tr>
                                             <th>관리자 여부</th>
@@ -151,13 +151,13 @@
                 processData: false,
                 contentType: false,
                 success: function(proc_result) {
+                    console.log(proc_result);
                     var message = proc_result.message;
                     var result = proc_result.result;
-                    var image_base64 = proc_result.image_base64;
-                    var profile_image = proc_result.profile_image;
+                    var file_id = proc_result.file_id;
                     if(result == true) {
                         document.getElementById("uploaded_profile_image").innerHTML = "<img src=\""+image_base64+"\">";
-                        document.getElementById("profile_image").value = profile_image;
+                        document.getElementById("profile_image").value = file_id;
                     } else {
                         alert(message);
                     }

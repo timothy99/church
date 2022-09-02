@@ -35,7 +35,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get("/", "Board::list"); // 메인
+$routes->get("/", "Dashboard::dashboard"); // 메인
 $routes->get("/batch/meal", "Batch::meal"); // 식단 배치
 $routes->get("/batch/attendance", "Batch::attendance"); // 출석체크 이벤트 알림
 $routes->get("/business/search", "Business::search"); // 휴폐업 조회 화면
@@ -55,9 +55,17 @@ $routes->post("/meal/delete", "Meal::Delete"); // 식단 데이터 삭제
 $routes->post("/meal/month", "Meal::month"); // 구내식당 월별 데이터
 $routes->post("/meal/update", "Meal::update"); // 구내식당 데이터 저장
 $routes->post("/member/update", "Member::update"); // 회원 정보 수정
-$routes->post("/upload/profile", "Upload::profile"); // 프로필 이미지 업로드
+$routes->post("/attach/profile", "Attach::profile"); // 프로필 이미지 업로드
+$routes->get("/attach/view/(:any)", "Attach::view/$1"); // 파일 보기
 $routes->post("/user/signin", "User::signin"); // 로그인 처리
 $routes->post("/user/signup", "User::signup"); // 가입처리
+$routes->get("/board/list", "Board::list"); // 게시판 목록 화면
+$routes->get("/board/view/(:num)", "Board::view/$1"); // 게시판 보기 화면
+$routes->get("/board/write", "Board::write"); // 게시판 쓰기 화면
+$routes->get("/board/edit/(:num)", "Board::edit/$1"); // 게시판 수정 화면
+$routes->post("/board/insert", "Board::insert"); // 게시판 입력/수정 로직
+$routes->post("/board/update/(:num)", "Board::update/$1"); // 게시판 입력/수정 로직
+$routes->post("/board/delete/(:num)", "Board::delete/$1"); // 게시판 삭제 로직
 
 /*
  * --------------------------------------------------------------------
