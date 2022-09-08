@@ -14,17 +14,18 @@ class UploadModel extends Model
      * width, height 모두 0을 입력하면 리사이징을 실행하지 않는다.
      *
      * @param object $user_file - 파일 객체
-     * @param int $limit_size - 업로드 제한 사이즈 메가바이트 단위로 입력
-     * @param int $width - 가로 해상도로 0을 입력하면 세로를 기준으로 리사이징을 한다
-     * @param int $height - 세로 해상도로 0을 입력하면 가로를 기준으로 리사이징을 한다
      * 
      * @return array
      * 
      * @author     timothy99
      */
-    public function uploadProfile(object $user_file, int $limit_size, int $width, int $height) : array
+    public function uploadProfile(object $user_file) : array
     {
         $file_model = new FileModel();
+
+        $limit_size = 2; // 2메가 바이트 업로드 제한 사이즈 메가바이트 단위로 입력
+        $width = 160; // 가로 해상도 160, 가로 해상도로 0을 입력하면 세로를 기준으로 리사이징을 한다
+        $height = 0; // 세로 해상도에 따라 조정, 세로 해상도로 0을 입력하면 가로를 기준으로 리사이징을 한다
 
         $proc_result = array();
 

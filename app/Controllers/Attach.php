@@ -17,7 +17,7 @@ class Attach extends BaseController
         if($is_valid == false) { // 올린 파일이 잘못된 경우
             throw new \RuntimeException($user_file->getErrorString()."(".$user_file->getError().")"); // 에러를 던진다
         } else { // 파일이 정상인 경우
-            $proc_result = $upload_model->uploadProfile($user_file, 2, 160, 0); // 프로필 이미지 파일을 올린다.
+            $proc_result = $upload_model->uploadProfile($user_file); // 프로필 이미지 파일을 올린다.
         }
 
         echo json_encode($proc_result);
