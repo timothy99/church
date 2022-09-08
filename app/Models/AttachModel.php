@@ -6,7 +6,7 @@ use CodeIgniter\Model;
 use App\Models\FileModel;
 use Throwable;
 
-class UploadModel extends Model
+class AttachModel extends Model
 {
     /**
      * [Description for uploadProfile]
@@ -70,6 +70,11 @@ class UploadModel extends Model
         $proc_result["file_id"] = $file_id;
 
         return $proc_result;
+    }
+
+    public function getFile($file_id)
+    {
+        // 
     }
 
 }
