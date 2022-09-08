@@ -72,10 +72,7 @@ class FileModel extends Model
         $file_id = $file_info["file_id"];
         $public_yn = $file_info["public_yn"] ?? "N";
 
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $session = \Config\Services::session();
-        $user_session = $session->get("user_session");
-        $user_id = $user_session->user_id;
+        $user_id = getUserSessionInfo("user_id"); // 세션의 정보중 아이디를 갖고 옵니다.
 
         $today = date("YmdHis");
 
@@ -175,9 +172,6 @@ class FileModel extends Model
 
     public function getFileInfo($user_id, $file_id)
     {
-        $result = true;
-        $message = "파일 정보를 드립니다.";
-
         $db = db_connect();
         $builder = $db->table("gwt_file");
         $builder->select("file_id");

@@ -113,10 +113,7 @@ class Member extends BaseController
         $use_yn = $this->request->getPost("use_yn", FILTER_SANITIZE_SPECIAL_CHARS);
         $profile_image = $this->request->getPost("profile_image", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $session = \Config\Services::session();
-        $user_session = $session->get("user_session");
-        $upd_id = $user_session->user_id;
+        $upd_id = getUserSessionInfo("user_id"); // 세션의 정보중 아이디를 갖고 옵니다.
 
         $user_name = trim($user_name);
         if ($user_name == null) {
@@ -163,11 +160,7 @@ class Member extends BaseController
 
         $user_idx = $this->request->getPost("user_idx", FILTER_SANITIZE_SPECIAL_CHARS);
 
-        $session = \Config\Services::session();
-
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $upd_id = $user_session["user_id"];
+        $upd_id = getUserSessionInfo("user_id"); // 세션의 정보중 아이디를 갖고 옵니다.
 
         $data = array();
         $data["user_idx"] = $user_idx;

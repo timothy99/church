@@ -74,12 +74,8 @@ class AuthorityModel extends Model
      */
     public function checkLogin() : void
     {
-        // 세션을 초기화 합니다.
-        $session = \Config\Services::session();
-
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $is_login = isset($user_session->user_id);
+        $user_id = getUserSessionInfo("user_id"); // 세션의 정보중 아이디를 갖고 옵니다.
+        $is_login = isset($user_id);
 
         $current_uri = uri_string();
 
