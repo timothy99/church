@@ -46,7 +46,7 @@
                                             <td><input type="text" class="form-control" id="user_name" name="user_name" value="<?=$member_info->user_name ?>"></td>
                                         </tr>
                                         <tr>
-                                            <th>프로필 이미지</th>
+                                            <th>프로필 이미지 올리기</th>
                                             <td>
                                                 <div class="form-group">
                                                     <div class="input-group">
@@ -62,8 +62,8 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <th>기존 프로필 이미지</th>
-                                            <td id="uploaded_profile_image"><img src="https://grw.inwoo.net/attach/view/znHfOXE6g4icZnGvNWOsQwn0mr2BXXZZ"></td>
+                                            <th>프로필 이미지 보기</th>
+                                            <td id="uploaded_profile_image"><img src="/attach/view/<?=$member_info->profile_image ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>관리자 여부</th>
@@ -144,7 +144,7 @@
             formData.append("request_input", request_input.files[0]);
 
             $.ajax({
-                url: "/upload/profile",
+                url: "/attach/profile",
                 type: "POST",
                 dataType: "json",
                 data: formData,
@@ -156,7 +156,7 @@
                     var result = proc_result.result;
                     var file_id = proc_result.file_id;
                     if(result == true) {
-                        document.getElementById("uploaded_profile_image").innerHTML = "<img src=\""+image_base64+"\">";
+                        document.getElementById("uploaded_profile_image").innerHTML = "<img src=\"/attach/view/"+file_id+"\">";
                         document.getElementById("profile_image").value = file_id;
                     } else {
                         alert(message);

@@ -43,7 +43,7 @@
                                         </tr>
                                         <tr>
                                             <th>프로필 이미지</th>
-                                            <td><img src="<?=$user_info->profile_image_base64 ?>"></td>
+                                            <td><img src="/attach/view/<?=$user_info->profile_image ?>"></td>
                                         </tr>
                                         <tr>
                                             <th>관리자 여부</th>

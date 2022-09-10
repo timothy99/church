@@ -36,7 +36,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="<?=$user_info->profile_image_base64 ?>" class="img-circle elevation-2" alt="User Image">
+                    <img src="/attach/view/<?=$user_info->profile_image ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="/myinfo/edit" class="d-block"><?=$user_info->user_name ?></a>

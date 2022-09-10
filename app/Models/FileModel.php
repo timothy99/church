@@ -112,34 +112,6 @@ class FileModel extends Model
         return $model_result;
     }
 
-    // 업로드된 이미지 파일의 정보를 갖고 온다.
-    public function getImageFileInfo($file_id)
-    {
-        $db = db_connect();
-        $builder = $db->table("gwt_file");
-        $builder->select("file_id");
-        $builder->select("file_directory");
-        $builder->select("file_name_uploaded");
-        $builder->select("mime_type");
-        $builder->where("file_id", $file_id);
-        $builder->where("category", "image");
-        $builder->where("del_yn", "N");
-        $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
-
-        $file_id = $db_info->file_id;
-        $file_path = $db_info->file_directory."/".$db_info->file_name_uploaded;
-        $mime_type = $db_info->mime_type;
-
-        $image_file = new \CodeIgniter\Files\File(UPLOADPATH.$file_path, true);
-
-        $file_path = $image_file->getPathname();
-
-        $data = file_get_contents($file_path);
-        $image_base64 = "data:".$mime_type.";base64,".base64_encode($data);
-
-        return $image_base64;
-    }
-
     // 이미지 파일 리사이즈
     public function resizeImageFile($file_path, $width, $height)
     {
