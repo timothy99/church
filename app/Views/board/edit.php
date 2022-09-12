@@ -96,6 +96,7 @@
                 success: function(proc_result) {
                     var result = proc_result.result;
                     var message = proc_result.message;
+                    console.log(proc_result);
                     if(result == true) {
                         location.href = "/board/list";
                     } else {
@@ -114,8 +115,34 @@
             minHeight: null,// set minimum height of editor
             maxHeight: null,// set maximum height of editor
             focus: true,    // set focus to editable area after initializing summe
-            lang: "ko-KR"   // default: 'en-US'
+            lang: "ko-KR",  // default: 'en-US'
+            callbacks : { 
+                onImageUpload : function(files) {
+                    // 파일 업로드(다중업로드를 위해 반복문 사용)
+                    for (var i = files.length - 1; i >= 0; i--) {
+                        uploadSummernoteImageFile(files[i], this);
+                    }
+                }
+            }
         }); // Summernote
+
+        function uploadSummernoteImageFile(file, el) {
+            formData = new FormData();
+            formData.append("file", file);
+            $.ajax({
+                data : formData,
+                type : "POST",
+                url : "/attach/image",
+                dataType: "json",
+                processData : false,
+                contentType : false,
+                success : function(proc_result) {
+                    console.log(proc_result.filepath);
+                    var filepath = proc_result.filepath;
+                    $("#contents").summernote("insertImage", filepath);
+                }
+            });
+        }
     });
 
 </script>

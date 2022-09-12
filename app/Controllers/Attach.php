@@ -20,7 +20,7 @@ class Attach extends BaseController
             $proc_result = $attach_model->uploadProfile($user_file); // 프로필 이미지 파일을 올린다.
         }
 
-        echo json_encode($proc_result);
+        return json_encode($proc_result);
     }
 
     // 파일 보기 모드
@@ -37,6 +37,21 @@ class Attach extends BaseController
         $raw_file = $file_model->getRawFile($this->response, $file_path); // 파일 다운로드
 
         return $raw_file;
+    }
+
+    // 이미지 업로드
+    public function image()
+    {
+        $result = true;
+        $message = "에에에에ㅔㅇ";
+        $filepath = "/attach/view/iFAN4LC9RlykPK2pShFTOuSPIATJ9Z3";
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+        $proc_result["filepath"] = $filepath;
+
+        return json_encode($proc_result);
     }
 
 }

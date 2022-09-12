@@ -80,6 +80,7 @@ class User extends BaseController
         $data["user_password"] = $user_password_enc;
 
         $model_result = $member_model->getLoginInfo($data);
+
         $result = $model_result["result"];
         if ($result == false) { // 회원정보 조회에 오류가 발생한 경우
             $message = $model_result["message"];
@@ -94,8 +95,6 @@ class User extends BaseController
                 $user_idx = $user_login_info->user_idx;
                 $model_result = $member_model->getMemberInfo($user_idx);
                 $member_info = $model_result["db_info"];
-                $profile_image_base64 = $member_model->getMemberProfileImageInfo($user_idx);
-                $member_info->profile_image_base64 = $profile_image_base64;
                 $session->set("user_session", $member_info);
             }
         }

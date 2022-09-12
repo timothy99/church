@@ -56,6 +56,7 @@ $routes->post("/meal/month", "Meal::month"); // 구내식당 월별 데이터
 $routes->post("/meal/update", "Meal::update"); // 구내식당 데이터 저장
 $routes->post("/member/update", "Member::update"); // 회원 정보 수정
 $routes->post("/attach/profile", "Attach::profile"); // 프로필 이미지 업로드
+$routes->post("/attach/image", "Attach::image"); // 이미지 업로드
 $routes->get("/attach/view/(:any)", "Attach::view/$1"); // 파일 보기
 $routes->post("/user/signin", "User::signin"); // 로그인 처리
 $routes->post("/user/signup", "User::signup"); // 가입처리

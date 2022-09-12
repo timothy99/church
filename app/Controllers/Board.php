@@ -34,7 +34,7 @@ class Board extends BaseController
         $proc_result["paging_view"] = $paging_view; // 페이징 뷰
 
         $view = view("board/list", $proc_result);
-        echo $view;
+        return $view;
     }
 
     public function view()
@@ -57,7 +57,8 @@ class Board extends BaseController
         $data["href_action"] = "/board/insert";
         $data["board_info"] = $board_info;
         $view = view("board/edit", $data);
-        echo $view;
+
+        return $view;
     }
 
     public function edit()
@@ -67,7 +68,14 @@ class Board extends BaseController
 
     public function insert()
     {
-        print_r($_POST);
+        $result = true;
+        $message = "입력이 잘 되었습니다.";
+
+        $proc_result = array();
+        $proc_result["result"] = $result;
+        $proc_result["message"] = $message;
+
+        return json_encode($proc_result);
     }
 
     public function update()
