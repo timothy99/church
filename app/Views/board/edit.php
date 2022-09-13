@@ -110,38 +110,36 @@
             history.go(-1);
         });
 
+        // 썸머노트 초기화
         $("#contents").summernote({
-            height: 300,    // set editor height
-            minHeight: null,// set minimum height of editor
-            maxHeight: null,// set maximum height of editor
-            focus: true,    // set focus to editable area after initializing summe
-            lang: "ko-KR",  // default: 'en-US'
+            height: 300, // 높이
+            focus: true, // 로딩후 포커스 이동
+            lang: "ko-KR", // 언어파일
             callbacks : { 
-                onImageUpload : function(files) {
-                    // 파일 업로드(다중업로드를 위해 반복문 사용)
+                onImageUpload : function(files) { // 파일 업로드(다중업로드를 위해 반복문 사용)
                     for (var i = files.length-1; i >= 0; i--) {
-                        uploadSummernoteImageFile(files[i]);
+                        uploadSummernoteFile(files[i]);
                     }
                 }
             }
         }); // Summernote
-
-        function uploadSummernoteImageFile(file) {
-            formData = new FormData();
-            formData.append("file", file);
-            $.ajax({
-                data : formData,
-                type : "POST",
-                url : "/attach/board",
-                dataType: "json",
-                processData : false,
-                contentType : false,
-                success : function(proc_result) {
-                    var file_html = proc_result.file_html;
-                    $("#contents").summernote("pasteHTML", file_html);
-                }
-            });
-        }
     });
 
+    // 썸머노트 파일 첨부 로직
+    function uploadSummernoteFile(file) {
+        formData = new FormData();
+        formData.append("file", file);
+        $.ajax({
+            data : formData,
+            type : "POST",
+            url : "/attach/board",
+            dataType: "json",
+            processData : false,
+            contentType : false,
+            success : function(proc_result) {
+                var file_html = proc_result.file_html;
+                $("#contents").summernote("pasteHTML", file_html);
+            }
+        });
+    }
 </script>

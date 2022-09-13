@@ -151,7 +151,6 @@
                 processData: false,
                 contentType: false,
                 success: function(proc_result) {
-                    console.log(proc_result);
                     var message = proc_result.message;
                     var result = proc_result.result;
                     var file_id = proc_result.file_id;
@@ -165,6 +164,4 @@
             });
         });
     });
-
-
 </script>
