@@ -20,7 +20,15 @@ class FileModel extends Model
             $mime_type[] = "image/jpeg";
             $mime_type[] = "image/gif";
         } else {
-            // 기타 사항에 대해서 처리는 아직 정해지지 않음
+            $mime_type[] = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"; // 엑셀(xlsx)
+            $mime_type[] = "application/vnd.ms-excel"; // 엑셀(xls)
+            $mime_type[] = "application/vnd.openxmlformats-officedocument.presentationml.presentation"; // 파워포인트(pptx)
+            $mime_type[] = "application/vnd.ms-powerpoint"; // 파워포인트(ppt)
+            $mime_type[] = "application/vnd.openxmlformats-officedocument.wordprocessingml.document"; // 워드(docx)
+            $mime_type[] = "application/msword"; // 워드(doc)
+            $mime_type[] = "text/plain"; // 텍스트
+            $mime_type[] = "application/pdf"; // PDF
+            $mime_type[] = "application/zip"; // ZIP
         }
         $check_mime_type = in_array($user_file_type, $mime_type);
 
@@ -113,27 +121,25 @@ class FileModel extends Model
     }
 
     // 이미지 파일 리사이즈
-    public function resizeImageFile($file_path, $width, $height)
+    public function resizeImageFile($file_path, $width, $height, $quality = 80)
     {
         $image_path = UPLOADPATH.$file_path;
+        $image = \Config\Services::image();
+        $image->withFile($image_path); // 어느 이미지 수정할지 결정
 
         if($width == 0 && $height == 0) {
             // 이미지 처리를 하지 않는다
         } else {
             $mster_dimension = "auto";
-            $image = \Config\Services::image();
-            $image->withFile($image_path); // 어느 이미지 수정할지 결정
-
             // 이미지 크기를 0으로 지정할 경우 비율에 맞추는 이미지로 설정
             if ($width == 0) {
                 $mster_dimension = "height";
             } elseif ($height == 0) {
                 $mster_dimension = "width";
             }
-
             $image->resize($width, $height, true, $mster_dimension);
-            $image->save($image_path);
         }
+        $image->save($image_path, $quality); // 이미지를 저장할때 퀄리티 조정은 반드시 한다. CI프레임워크의 기본값은 90
 
         // 파일에 대한 저장 용량 얻기
         $file = new \CodeIgniter\Files\File($image_path);
@@ -147,6 +153,7 @@ class FileModel extends Model
         $db = db_connect();
         $builder = $db->table("gwt_file");
         $builder->select("file_id");
+        $builder->select("file_name_org");
         $builder->select("file_directory");
         $builder->select("file_name_uploaded");
         $builder->select("file_size");
@@ -167,6 +174,7 @@ class FileModel extends Model
                 // 아무일도 안함
             } else { // 공개되면 안되는 파일이면서 내 파일도 아니면 빈값
                 $db_info->file_id = null;
+                $db_info->file_name_org = null;
                 $db_info->file_directory = null;
                 $db_info->file_name_uploaded = null;
                 $db_info->file_size = null;
