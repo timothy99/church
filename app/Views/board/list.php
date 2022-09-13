@@ -53,7 +53,7 @@
     foreach ($board_list as $no => $val) :
 ?>
                                         <tr>
-                                            <td class="text-center"><?=$start_row+$no ?></td>
+                                            <td class="text-center"><?=$cnt-($start_row+$no) ?></td>
                                             <td><a href="/board/view/<?=$val->board_idx ?>"><?=$val->title ?></a></td>
                                             <td><?=$val->ins_date ?></td>
                                             <td><?=$val->ins_id ?></td>
