@@ -33,3 +33,4 @@
 <script src="/assets/plugin/adminlte3/js/adminlte.js?ver=<?=JS_VER ?>"></script><!-- AdminLTE App -->
 <script src="/assets/plugin/fullcalendar/main.js?ver=<?=JS_VER ?>"></script><!-- fullCalendar 2.2.5 -->
 <script src="/assets/plugin/fullcalendar/locales/ko.js?ver=<?=JS_VER ?>"></script><!-- fullCalendar 한국어 -->
+<script src="/assets/plugin/sweetalert2/sweetalert2.min.js"></script><!-- sweetalert2 -->

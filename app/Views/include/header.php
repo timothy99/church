@@ -16,4 +16,5 @@
     <link rel="stylesheet" href="/assets/plugin/daterangepicker/daterangepicker.css?ver=<?=CSS_VER ?>"><!-- Daterange picker -->
     <link rel="stylesheet" href="/assets/plugin/summernote/summernote-bs4.min.css?ver=<?=CSS_VER ?>"><!-- summernote -->
     <link rel="stylesheet" href="/assets/plugin/fullcalendar/main.css?ver=<?=CSS_VER ?>"><!-- fullcalendar -->
+    <link rel="stylesheet" href="/assets/plugin/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css"><!-- sweetalert2 -->
 </head>
