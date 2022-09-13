@@ -54,7 +54,7 @@
     foreach ($meal_list as $no => $val) :
 ?>
                                         <tr>
-                                            <td class="text-center"><?=$start_row+$no ?></td>
+                                            <td class="text-center"><?=$cnt-$start_row-$no ?></td>
                                             <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_date ?></a></td>
                                             <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_menu ?></a></td>
                                             <td><?=$val->ins_date ?></td>

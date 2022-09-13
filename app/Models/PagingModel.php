@@ -36,12 +36,28 @@ class PagingModel extends Model
             $start_page = $end_page-8;
         }
 
+        if($start_page < 1) { // 시작페이지가 1보다 작으면 1로 고정
+            $start_page = 1;
+        }
+
         if($max_page < $end_page) {
             $end_page = $max_page;
         }
 
         if($end_page == 0) { // 데이터가 하나도 없어서 0이라면
             $end_page = 1; // 1페이지로 고정
+        }
+
+        // 이전 페이지 계산
+        $prev_page = $page-1;
+        if($prev_page < 1) { // 이전페이지 계산해서 1보다 작으면
+            $prev_page = 1; // 1로 고정
+        }
+
+        // 다음 페이지 계산
+        $next_page = $page+1;
+        if($next_page > $end_page) { // 다음페이지가 끝나는 페이지 보다 크면
+            $next_page = $end_page; // 끝 페이지로 고정
         }
 
         $page_arr = array();
@@ -58,6 +74,8 @@ class PagingModel extends Model
         $paging["start_page"] = $start_page;
         $paging["end_page"] = $end_page;
         $paging["max_page"] = $max_page;
+        $paging["prev_page"] = $prev_page;
+        $paging["next_page"] = $next_page;
         $paging["cnt"] = $cnt;
         $paging["page_arr"] = $page_arr;
 

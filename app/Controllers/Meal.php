@@ -34,7 +34,7 @@ class Meal extends BaseController
         $proc_result["meal_list"] = $model_result["db_list"];
         $proc_result["cnt"] = $cnt;
         $proc_result["paging"] = $paging;
-        $proc_result["start_row"] = ($page-1)*$rows+1;
+        $proc_result["start_row"] = ($page-1)*$rows;
         $proc_result["p"] = $page;
         $proc_result["q"] = $search_text;
         $proc_result["paging_view"] = $paging_view; // 페이징 뷰
