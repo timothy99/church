@@ -31,31 +31,48 @@
                             <div class="card-header">
                                 <h3 class="card-title"><?=$board_info->title ?></h3>
                             </div><!-- /.card-header -->
-                        <div class="card-body">
-                            <dl class="row">
-                                <dt class="col-2">공지</dt>
-                                <dd class="col-4"><?=$board_info->notice_yn ?></dd>
-                                <dt class="col-2">비밀글</dt>
-                                <dd class="col-4"><?=$board_info->secret_yn ?></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-2">내용</dt>
-                                <dd class="col-10"><?=htmlspecialchars_decode($board_info->contents) ?></dd>
-                            </dl>
-                            <dl class="row">
-                                <dt class="col-2">등록일</dt>
-                                <dd class="col-4"><?=$board_info->ins_date ?></dd>
-                                <dt class="col-2">등록자</dt>
-                                <dd class="col-4"><?=$board_info->ins_id ?></dd>
-                            </dl>
-                        </div><!-- /.card-body -->
-                        <div class="card-footer">
-                            <button type="button" class="btn btn-warning" id="board_cancel" name="board_cancel">뒤로가기</button>
-                            <button type="button" class="btn btn-danger" id="board_delete" name="board_delete">삭제</button>
-                            <button type="button" class="btn btn-info float-right" id="board_edit" name="board_edit">수정</button>
-                        </div>
-                    </div><!-- /.card -->
-                </div><!-- ./col -->
+                            <div class="card-body">
+                                <dl class="row">
+                                    <dt class="col-2">공지</dt>
+                                    <dd class="col-4"><?=$board_info->notice_yn ?></dd>
+                                    <dt class="col-2">비밀글</dt>
+                                    <dd class="col-4"><?=$board_info->secret_yn ?></dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-2">내용</dt>
+                                    <dd class="col-10"><?=htmlspecialchars_decode($board_info->contents) ?></dd>
+                                </dl>
+                                <dl class="row">
+                                    <dt class="col-2">등록일</dt>
+                                    <dd class="col-4"><?=$board_info->ins_date ?></dd>
+                                    <dt class="col-2">등록자</dt>
+                                    <dd class="col-4"><?=$board_info->ins_id ?></dd>
+                                </dl>
+                            </div><!-- /.card-body -->
+                            <div class="card-footer">
+                                <button type="button" class="btn btn-warning" id="board_cancel" name="board_cancel">뒤로가기</button>
+                                <button type="button" class="btn btn-danger" id="board_delete" name="board_delete">삭제</button>
+                                <button type="button" class="btn btn-info float-right" id="board_edit" name="board_edit">수정</button>
+                            </div><!-- /.card-footer -->
+                        </div><!-- /.card -->
+                    </div><!-- /.col -->
+                </div><!-- ./row -->
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="form-group row">
+                                    <div class="col-sm-11">
+                                        <textarea class="form-control" id="contents" name="contents" rows="3" placeholder="댓글을 쓰세요"></textarea>
+                                    </div>
+                                    <div class="col-sm-1">
+                                        <button type="button" class="btn btn-success" id="board_comments" name="board_comments">등록</button>
+                                    </div>
+                                </div>
+                            </div><!-- /.card-body -->
+                        </div><!-- /.card -->
+                    </div><!-- /.col -->
+                </div><!-- ./row -->
             </div><!-- /.container-fluid -->
         </section><!-- /.content -->
     </div><!-- /.content-wrapper -->
