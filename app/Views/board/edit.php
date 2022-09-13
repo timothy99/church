@@ -2,6 +2,7 @@
 <?php   include_once APPPATH."Views/include/menu.php"; // 네비게이션(상단, 좌측 메뉴) ?>
 
 <form id="frm" name="frm" class="form-horizontal" data-bitwarden-watching="1">
+    <input type="hidden" id="board_idx" name="board_idx" value="<?=$board_info->board_idx ?>">
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
@@ -34,13 +35,13 @@
                                 <div class="form-group row">
                                     <div class="offset-sm-2 col-sm-1">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="notice_yn" name="notice_yn">
+                                            <input type="checkbox" class="form-check-input" id="notice_yn" name="notice_yn" value="Y" <?=$board_info->notice_checked ?>>
                                             <label class="form-check-label" for="notice_yn">공지</label>
                                         </div>
                                     </div>
                                     <div class="col-sm-9">
                                         <div class="form-check">
-                                            <input type="checkbox" class="form-check-input" id="secret_yn" name="secret_yn">
+                                            <input type="checkbox" class="form-check-input" id="secret_yn" name="secret_yn" value="Y" <?=$board_info->secret_checked ?>>
                                             <label class="form-check-label" for="secret_yn">비밀글</label>
                                         </div>
                                     </div>
@@ -96,7 +97,6 @@
                 success: function(proc_result) {
                     var result = proc_result.result;
                     var message = proc_result.message;
-                    console.log(proc_result);
                     if(result == true) {
                         location.href = "/board/list";
                     } else {
@@ -119,27 +119,26 @@
             callbacks : { 
                 onImageUpload : function(files) {
                     // 파일 업로드(다중업로드를 위해 반복문 사용)
-                    for (var i = files.length - 1; i >= 0; i--) {
-                        uploadSummernoteImageFile(files[i], this);
+                    for (var i = files.length-1; i >= 0; i--) {
+                        uploadSummernoteImageFile(files[i]);
                     }
                 }
             }
         }); // Summernote
 
-        function uploadSummernoteImageFile(file, el) {
+        function uploadSummernoteImageFile(file) {
             formData = new FormData();
             formData.append("file", file);
             $.ajax({
                 data : formData,
                 type : "POST",
-                url : "/attach/image",
+                url : "/attach/board",
                 dataType: "json",
                 processData : false,
                 contentType : false,
                 success : function(proc_result) {
-                    console.log(proc_result.filepath);
-                    var filepath = proc_result.filepath;
-                    $("#contents").summernote("insertImage", filepath);
+                    var file_html = proc_result.file_html;
+                    $("#contents").summernote("pasteHTML", file_html);
                 }
             });
         }

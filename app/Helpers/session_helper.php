@@ -22,7 +22,7 @@ function getUserSession()
 function getUserSessionInfo($info_id)
 {
     $user_session = getUserSession(); // 세션의 정보중 아이디를 갖고 옵니다.
-    $info_value = isset($user_session->{$info_id}) ?? null; // 정보가 없을땐 null 반환
+    $info_value = isset($user_session->{$info_id}) == true ? $user_session->{$info_id} : null;
 
     return $info_value;
 }
