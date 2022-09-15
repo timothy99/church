@@ -33,8 +33,7 @@ class User extends BaseController
      */
     public function logout()
     {
-        $session = $this->session;
-        $session->destroy(); // 세션 삭제
+        destroySession(); // 세션 삭제
         $base_url = base_url(); // 기본 url 입력
         header("Location: $base_url/user/login"); // 로그인 하는 사이트로 보냄
         exit;
@@ -52,8 +51,6 @@ class User extends BaseController
     {
         $member_model = new MemberModel();
         $security_model = new SecurityModel();
-
-        $session = $this->session; // 세션을 초기화 합니다.
 
         $result = true;
         $message = "로그인이 완료되었습니다.";
@@ -95,7 +92,7 @@ class User extends BaseController
                 $user_idx = $user_login_info->user_idx;
                 $model_result = $member_model->getMemberInfo($user_idx);
                 $member_info = $model_result["db_info"];
-                $session->set("user_session", $member_info);
+                setUserSession($member_info);
             }
         }
 
