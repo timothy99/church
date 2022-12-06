@@ -8,12 +8,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0">식단(목록형)</h1>
+                        <h1 class="m-0">게시판</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">홈</a></li>
-                            <li class="breadcrumb-item active">식단(목록형)</li>
+                            <li class="breadcrumb-item active">게시판</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -43,20 +43,18 @@
                                     <thead class="text-center">
                                         <tr>
                                             <th>#</th>
-                                            <th>날짜</th>
-                                            <th>식단</th>
+                                            <th>제목</th>
                                             <th>등록일</th>
                                             <th>등록자</th>
                                         </tr>
                                     </thead>
                                     <tbody>
 <?php
-    foreach ($meal_list as $no => $val) :
+    foreach ($board_list as $no => $val) :
 ?>
                                         <tr>
-                                            <td class="text-center"><?=$cnt-$start_row-$no ?></td>
-                                            <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_date ?></a></td>
-                                            <td><a href="/meal/view/<?=$val->meal_date ?>"><?=$val->meal_menu ?></a></td>
+                                            <td class="text-center"><?=$cnt-($start_row+$no) ?></td>
+                                            <td><a href="/board/view/<?=$val->board_idx ?>"><?=$val->title ?></a></td>
                                             <td><?=$val->ins_date ?></td>
                                             <td><?=$val->ins_id ?></td>
                                         </tr>
@@ -64,7 +62,7 @@
     endforeach;
 ?>
 <?php
-    if (count($meal_list) == 0) :
+    if (count($board_list) == 0) :
 ?>
                                         <tr>
                                             <td colspan="5" class="text-center">데이터가 없습니다</td>
@@ -76,8 +74,9 @@
                                 </table>
                             </div>
                             <!-- /.card-body -->
-                            <div class="card-footer clearfix">
+                            <div class="card-footer clearfix text-center">
 <?=$paging_view ?>
+                                <button type="button" class="btn btn-info float-right" id="write" name="write">글쓰기</button>
                             </div>
                         </div><!-- /.card -->
                     </div>
@@ -91,9 +90,9 @@
 <script>
     // 좌측 메뉴 강조하는 함수
     $(window).on("load", function() {
-        $("#upper-meal-calendar").addClass("menu-open");
-        $("#a-meal-calendar").addClass("active");
-        $("#bottom-meal-list").addClass("active");
+        $("#upper-board-list").addClass("menu-open");
+        $("#a-board-list").addClass("active");
+        $("#bottom-board-list").addClass("active");
     });
 
     $(function() {
@@ -101,16 +100,19 @@
             if(e.keyCode == 13) {
                 search();
             }
-            
         });
 
         $("#q_search").click(function(e) {
             search();
         });
+
+        $("#write").click(function(e) {
+            location.href = "/board/write";
+        });
     });
 
     function search() {
         var q = $("#q").val();
-        location.href = "/meal/list?p=1&q="+q;
+        location.href = "/board/list?p=1&q="+q;
     }
 </script>

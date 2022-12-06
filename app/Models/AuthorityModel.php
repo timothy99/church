@@ -74,12 +74,13 @@ class AuthorityModel extends Model
      */
     public function checkLogin() : void
     {
-        // 세션을 초기화 합니다.
-        $session = \Config\Services::session();
+        $member_model = new MemberModel();
 
-        // 세션의 정보중 아이디를 갖고 옵니다.
-        $user_session = $session->get("user_session");
-        $is_login = isset($user_session->user_id);
+        $session = getSession();
+        $user_session = getUserSession();
+
+        $user_idx = isset($user_session->user_idx) ? $user_session->user_idx : 0; // 세션의 정보중 사용자 인덱스를 갖고 옵니다.
+        $is_login = isset($user_session->user_idx);
 
         $current_uri = uri_string();
 
@@ -101,16 +102,8 @@ class AuthorityModel extends Model
              * 항상 회원의 정보를 탑재
              * 세션의 정보는 시간차가 있으므로 관리자 권한을 제외하거나 기타 정보의 변경이 생겼을때 바로 확인 되도록
             */
-            $user_idx = $user_session->user_idx;
-            $member_model = new MemberModel();
             $member_result = $member_model->getMemberInfo($user_idx);
             $member_info = $member_result["db_info"];
-            $profile_image_db = $member_info->profile_image;
-            $profile_image_session = $user_session->profile_image;
-            if($profile_image_db != $profile_image_session) {
-                $profile_image_base64 = $member_model->getMemberProfileImageInfo($user_idx);
-                $member_info->profile_image_base64 = $profile_image_base64;
-            }
             $session->set("user_session", $member_info); // 세션에 정보입력
         } else { // 로그인 안했으나 로그인이 필요한 url인 경우
             $base_url = base_url(); // 기본 url 입력

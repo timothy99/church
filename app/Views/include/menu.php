@@ -36,7 +36,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="<?=$user_info->profile_image_base64 ?>" class="img-circle elevation-2" alt="User Image">
+                    <img src="/attach/view/<?=$user_info->profile_image ?>" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="/myinfo/edit" class="d-block"><?=$user_info->user_name ?></a>
@@ -122,6 +122,21 @@
                                 <a href="/meal/list" class="nav-link" id="bottom-meal-list">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>식단(목록형)</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item" id="upper-board-list">
+                        <a href="/board/list" class="nav-link" id="a-board-list">
+                            <i class="nav-icon fas fa-book"></i>
+                            <p>게시판<i class="fas fa-angle-left right"></i></p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="/board/list" class="nav-link" id="bottom-board-list">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>게시판</p>
                                 </a>
                             </li>
                         </ul>

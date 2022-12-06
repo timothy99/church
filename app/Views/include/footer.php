@@ -24,11 +24,13 @@
 <script src="/assets/plugin/jqvmap/maps/jquery.vmap.usa.js?ver=<?=JS_VER ?>"></script><!-- JQVMap usa-->
 <script src="/assets/plugin/jquery-knob/jquery.knob.min.js?ver=<?=JS_VER ?>"></script><!-- jQuery Knob Chart -->
 <script src="/assets/plugin/moment/moment.min.js?ver=<?=JS_VER ?>"></script><!-- moment -->
-<script src="/assets/plugin/moment/locale/ko.js?ver=<?=JS_VER ?>"></script><!-- moment 한글 -->
+<script src="/assets/plugin/moment/locale/ko.js?ver=<?=JS_VER ?>"></script><!-- moment 한국어 -->
 <script src="/assets/plugin/daterangepicker/daterangepicker.js?ver=<?=JS_VER ?>"></script><!-- daterangepicker -->
 <script src="/assets/plugin/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js?ver=<?=JS_VER ?>"></script><!-- Tempusdominus Bootstrap 4 -->
 <script src="/assets/plugin/summernote/summernote-bs4.min.js?ver=<?=JS_VER ?>"></script><!-- Summernote -->
+<script src="/assets/plugin/summernote/lang/summernote-ko-KR.js"></script><!-- Summernote 한국어 -->
 <script src="/assets/plugin/overlayScrollbars/js/jquery.overlayScrollbars.min.js?ver=<?=JS_VER ?>"></script><!-- overlayScrollbars -->
 <script src="/assets/plugin/adminlte3/js/adminlte.js?ver=<?=JS_VER ?>"></script><!-- AdminLTE App -->
 <script src="/assets/plugin/fullcalendar/main.js?ver=<?=JS_VER ?>"></script><!-- fullCalendar 2.2.5 -->
 <script src="/assets/plugin/fullcalendar/locales/ko.js?ver=<?=JS_VER ?>"></script><!-- fullCalendar 한국어 -->
+<script src="/assets/plugin/sweetalert2/sweetalert2.min.js"></script><!-- sweetalert2 -->

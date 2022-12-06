@@ -48,6 +48,7 @@ class MealModel extends Model
             $builder->like("meal_menu", $search_text);
         }
         $builder->where("del_yn", "N");
+        $builder->orderBy("m_idx", "desc");
         $builder->limit($rows, $offset);
         $db_cnt = $builder->countAllResults(false); // 현제 데이터 총합
         $db_list = $builder->get()->getResultObject(); // 쿼리 실행

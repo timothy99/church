@@ -57,6 +57,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                                 <div class="float-right">
+                                    <button class="btn btn-warning" id="list" name="list">목록</button>
                                     <button class="btn btn-info" id="edit" name="edit">수정</button>
                                     <button class="btn btn-danger" id="delete" name="delete">삭제</button>
                                 </div>
@@ -82,6 +83,10 @@
         $("#edit").click(function(e) {
             var meal_date = $("#meal_date").val();
             location.href = "/meal/edit/"+meal_date;
+        });
+
+        $("#list").click(function(e) {
+            location.href = "/meal/list/";
         });
 
         $("#delete").click(function(e) {

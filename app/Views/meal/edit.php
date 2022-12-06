@@ -88,7 +88,7 @@
                     var result = proc_result.result;
                     var message = proc_result.message;
                     if(result == true) {
-                        location.href = "/meal/list";
+                        location.href = "/meal/calendar";
                     } else {
                         alert(message);
                     }

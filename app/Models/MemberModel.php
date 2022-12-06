@@ -177,7 +177,6 @@ class MemberModel extends Model
     public function getMemberInfo($user_idx)
     {
         $security_model = new SecurityModel();
-        $member_model = new MemberModel();
 
         $db_result = true;
         $db_message = "조회에 성공했습니다.";
@@ -202,9 +201,7 @@ class MemberModel extends Model
             $db_result = false;
             $db_message = "조회에 오류가 발생했습니다.";
         }
-
         $db_info->user_name = $security_model->getTextDecrypt($db_info->user_name);
-        $db_info->profile_image_base64 = $member_model->getMemberProfileImageInfo($user_idx);
 
         $model_result = array();
         $model_result["result"] = $db_result;
@@ -213,26 +210,6 @@ class MemberModel extends Model
 
         return $model_result;
     }
-
-    /**
-     * 사용자 프로필 이미지 불러오기
-     * 기존의 getMemberInfo 를 사용하면 세션에 너무 큰 이미지 정보까지 저장해서 따로 함수 작성
-    */
-    public function getMemberProfileImageInfo($user_idx)
-    {
-        $file_model = new FileModel();
-
-        $db = db_connect();
-        $builder = $db->table("gwt_user");
-        $builder->select("profile_image");
-        $builder->where("user_idx", $user_idx);
-        $db_info = $builder->get()->getFirstRow(); // 쿼리 실행
-
-        $image_base64 = $file_model->getImageFileInfo($db_info->profile_image);
-
-        return $image_base64;
-    }
-
 
     // 로그인 할때 사용자가 맞는지 정보 갖고 오기
     public function getLoginInfo($data)
