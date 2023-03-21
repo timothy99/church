@@ -25,10 +25,11 @@ class MessageModel extends Model
     // 텔레그램으로데이터 보내기
     public function sendTelegram(string $chat_id, string $message) : void
     {
+        
         $bot_host = env("telegram.bot.host");
         $bot_id = env("telegram.bot.id");
 
-        $telegram_url = $bot_host."/".$bot_id."/sendmessage?chat_id=".$chat_id."&user=1&pass=2&phone=3&text=".$message;
+        $telegram_url = $bot_host."/".$bot_id."/sendmessage?chat_id=".$chat_id."&user=1&pass=2&phone=3&text=".urlencode($message);
 
         $ch = curl_init(); // curl 초기화
         $headers = array(); //헤더정보
@@ -40,11 +41,9 @@ class MessageModel extends Model
         curl_setopt($ch,CURLOPT_CONNECTTIMEOUT ,3);
         curl_setopt($ch,CURLOPT_TIMEOUT, 20);
         curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_exec($ch);
+        $response = curl_exec($ch);
         curl_close($ch);
     }
-
-
 
     /**
      * [Description for sendTeamRoom]

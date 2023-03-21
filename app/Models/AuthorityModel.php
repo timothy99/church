@@ -94,6 +94,7 @@ class AuthorityModel extends Model
         $allow_uri[] = "user/signup";
         $allow_uri[] = "batch/meal";
         $allow_uri[] = "batch/attendance";
+        $allow_uri[] = "webhook/github";
 
         if (in_array($current_uri, $allow_uri)) { // 로그인 없어도 허용되는 url은
             // 아무것도 하지 않음
