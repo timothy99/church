@@ -68,6 +68,8 @@ $routes->get("/board/edit/(:num)", "Board::edit/$1"); // 게시판 수정 화면
 $routes->post("/board/insert", "Board::insert"); // 게시판 입력 로직
 $routes->post("/board/update", "Board::update"); // 게시판 수정 로직
 $routes->post("/board/delete", "Board::delete"); // 게시판 삭제 로직
+$routes->get("/text/random", "Text::random"); // 랜덤텍스트 생성
+$routes->post("/webhook/github", "Webhook::github"); // 깃헙에서 넘어오는 메시지 정리
 
 /*
  * --------------------------------------------------------------------
